@@ -1,0 +1,241 @@
+{% extends 'admin-base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block js %} {{block.super}}
+
+
+<script type="text/javascript" src="{% static 'js/edit-portfolio-question/app.js' %}">// must be the 1º</script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
+<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/waiting-screen.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/edit-portfolio-question/controllers.js' %}">// must be the 1º</script>
+{% endblock %}
+
+{% block body_attrs %}
+ng-app="edit-portfolio-question"
+{% endblock %}
+
+
+{% block content %}
+<!-- COURSE-CONTENT -->
+<div  cg-busy="myPromise">
+<div id="course" class="course-lesson" ng-controller="EditPortfolioQuestionController">
+
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+
+        <!-- ACTIONS -->
+
+        <div class="actions">
+            <div class="container">
+                <div  cg-busy="myPromise">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-4">
+                        <button class="btn btn-danger" ng-click="deletePortfolioQuestion()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this portfolio question' %}</button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-8 textright">
+                        <button class="btn btn-success" ng-click="savePortfolioQuestion()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                        <button class="btn btn-warning" ng-click="publishPortfolioQuestion();">{% trans 'Publish portfolio question' %} | <i class="fa fa-star-o"></i></button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- END ACTIONS -->
+
+        <div class="container js-fullheight c1">
+            <header id="main-header">
+              <div class="row">
+                <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
+                  <nav class="lesson-units hidden-xs">
+                      <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="portfolioquestion.title"
+                                      placeholder="{% trans 'Portfolio Question Title' %}" contenteditable="true"></span></h1>
+                  </nav>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-5">
+                  <!-- COURSE-SECTION-NAV -->
+                  <nav class="course-sections">
+                      <a ng-href="{% verbatim %}/{{course_url}}{% endverbatim %}"><span class="has-tooltip intro" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Intro' %}"></span></a>
+                      <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Forum' %}"></span></a>
+                      <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Course material' %}"></span></a>
+                      <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Messages' %}"></span></a>
+                      <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Reports' %}"></span></a>
+                  </nav>
+                  <!-- END COURSE-SECTION-NAV -->
+                </div>
+              </div>
+
+              <div class="course-info row">
+                <div class="col-lg-3 col-md-3">
+                  <h1 class="course-name">
+                      {% verbatim %}
+                      <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
+                      {% endverbatim %}
+                  </h1>
+                </div>
+              </div>
+          </header>
+            <!--PORTFOLIO-QUESTION-VIDEO -->
+        <div class="row">
+                <div class="col-lg-8 col-md-11 col-sm-11">
+                    <div class="add-content row" ng-init="section='video'">
+                        <div class="col-lg-6">
+                            <button class="btn btn-default uppercase"
+                                    ng-class="{'btn-info': section === 'video'}"
+                                    ng-click="section ='video'">{% trans 'Video' %}</button>
+
+                            <button class="btn btn-default uppercase"
+                                    ng-class="{'btn-info': section === 'document'}"
+                                    ng-click="section ='document'">{% trans 'Document' %}</button>
+                        </div>
+                    </div>
+
+                    <!-- VIDEO SECTION -->
+                    <div class="video col-lg-12" ng-show="section === 'video'">
+                        <!-- ROW -->
+                        <div class="row">
+                            <div class="waiting col-sm-12 col-lg-12 textcenter jumbotron"
+                                 style="height: 419px"
+                                 ng-show="portfolioquestion.video.youtube_id && !playerReady">
+                                <div class="middle">
+                                    <i class="fa fa-refresh fa-5x"></i>
+                                </div>
+                            </div>
+
+                            <!-- ADD-PORTFOLIO-QUESTION -->
+                            <div class="add-video-intro col-sm-12 col-lg-12 block textcenter" ng-hide="portfolioquestion.video">
+                                <!-- CENTERED -->
+                                <div class="centered">
+                                    <i class="fa fa-youtube-play fa-4x"></i>
+                                    <h1 class="top">{% trans 'PortfolioQuestion video' %}</h1>
+                                    <p class="form-group">
+                                        <input type="text" class="form-control" ng-model="portfolioquestion.intended_youtube_id"/>
+                                    </p>
+
+                                        <button class="btn btn-danger btn-lg uppercase" ng-click="portfolioquestion.intended_youtube_id=''">{% trans 'Cancel' %}</button>
+                                        <button class="btn btn-success btn-lg uppercase" ng-click="setPortfolioQuestionVideo()">{% trans 'Add' %}</button>
+
+                                </div>
+                                <!-- END CENTERED -->
+                            </div>
+
+                            <div class="col-lg-12 left right" style="overflow:hidden;" ng-style="{'display': portfolioquestion.video && playerReady ?'':'none'}">
+                                <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <p class="video-title" ng-model="portfolioquestion.video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                    </div>
+                                    <div class="col-lg-4 textright">
+                                        <button class="btn-edit-video btn btn-success btn-sm uppercase" ng-click="portfolioquestion.video = null">{% trans 'Change video' %}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END ADD-VIDEO-PORTFOLIO-QUESTION -->
+                        </div>
+                        <!-- END ROW -->
+                    </div>
+                    <!-- END VIDEO SECTION -->
+
+                    <!-- DOCUMENT SECTION -->
+                    <div class="activity col-lg-12" ng-show="section==='document'">
+                         <!-- ROW -->
+                        <div class="row">
+                            <div class=" col-sm-12 col-lg-12 textcenter jumbotron"
+                                 style="height: 419px"
+                                 ng-show="portfolioquestion.document.document_id && !pdfReady">
+                                <div class="middle" >
+
+                                   <div class="wrapper1" style="height: 300px;overflow-y: scroll;border: 1px solid grey;">
+                                           <ng-pdf  template-url="/static/templates/viewer.html" ng-init="init()" canvasid="pdf" scale="1"></ng-pdf>
+                                   </div>
+
+                                </div>
+                            </div>
+
+                            <!-- ADD-PORTFOLIO-QUESTION -->
+                            <div class="add-video-intro col-sm-12 col-lg-12 block textcenter" ng-hide="portfolioquestion.document">
+                                <!-- CENTERED -->
+                                <div class="centered">
+
+                                    <h1 class="top">{% trans 'PortfolioQuestion document' %}</h1>
+                                    <p class="form-group">
+                                        <input type="text" class="form-control" ng-model="portfolioquestion.intended_document_name" placeholder="Document name"/>
+                                        <input type="text" class="form-control" ng-model="portfolioquestion.intended_document_id" placeholder="Document URL"/>
+                                    </p>
+
+                                        <button class="btn btn-danger btn-lg uppercase" ng-click="portfolioquestion.intended_document_id=''">{% trans 'Cancel' %}</button>
+                                        <button class="btn btn-success btn-lg uppercase" ng-click="setPortfolioQuestionDocument()">{% trans 'Add' %}</button>
+
+                                </div>
+                                <!-- END CENTERED -->
+                            </div>
+                             <div class="col-lg-12 left right" style="overflow:hidden;" ng-style="{'display': portfolioquestion.video}">
+                                <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <p class="video-title" ng-model="portfolioquestion.document.name" placeholder="Nome do Document" contenteditable><p>
+                                    </div>
+                                    <div class="col-lg-4 textright">
+                                        <button class="btn-edit-video btn btn-success btn-sm uppercase" ng-click="portfolioquestion.document = null">{% trans 'Change document' %}</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- END ADD-VIDEO-PORTFOLIO-QUESTION -->
+                        </div>
+                        <!-- END ROW -->
+                    </div>
+                    <!-- END DOCUMENT SECTION -->
+                </div>
+
+                <div id="annotations" class="hidden-md hidden-sm hidden-xs">
+                </div>
+            </div>
+
+                        <!-- END PORTFOLIO-VIDEO -->
+            <div class="row">
+                <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+                    <div id="side-notes">
+                        <h2>{% trans 'Description' %}</h2>
+                        <modalmarkdowneditor title="{% trans 'Description' %}" on-save="savePortfolioQuestion(portfolioquestion)" content="portfolioquestion.description"></modalmarkdowneditor>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<!-- END COURSE-CONTENT -->
+<div class="tt-popup notifications hidden" alert-popup ng-class="{'hideTop': alert.hidden}">
+    <div class="alert fade in" ng-class="'alert-' + alert.type">
+        <button type="button" class="close" ng-click="alert.hidden=true">×</button>
+        <h4 ng-bind="alert.title"></h4>
+        <p class="bottom">
+            <ol class="bottom">
+                <li ng-repeat="message in alert.messages" ng-bind="message"></li>
+            </ol>
+        </p>
+        <div ng-show="alert.showControls">
+            <hr/>
+            <button type="button" class="btn" ng-class="'btn-'+alert.type" ng-click="alert.hidden=true">{% trans 'Close' %}</button>
+        </div>
+    </div>
+</div>
+
+<div waiting-screen class="waiting waiting-screen hidden">
+    <div class="middle">
+        <i class="fa fa-refresh fa-5x"></i>
+    </div>
+</div>
+{% endblock content %}

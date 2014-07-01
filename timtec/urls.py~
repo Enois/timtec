@@ -50,9 +50,6 @@ router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
 router.register(r'reports', UserCourseStats)
 router.register(r'course_stats', CourseStatsByLessonViewSet)
-router.register('portfolio_question', PortfolioQuestionViewSet)
-router.register('portfolio_answer', PortfolioAnswerViewSet)
-
 
 
 urlpatterns = patterns(
