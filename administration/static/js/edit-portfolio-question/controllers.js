@@ -88,11 +88,12 @@
 
 
 
- $scope.init = function () {
-     $scope.scroll = 0;
 
-     $scope.pdfName = 'Relativity: The Special and General Theory by Albert Einstein';
-     $scope.pdfUrl = 'http://fastandfluid.com/publicdownloads/AngularJSIn60MinutesIsh_DanWahlin_May2013.pdf';
+ $scope.init = function () {
+    $scope.scroll = 0;
+
+    $scope.pdfName = 'Relativity: The Special and General Theory by Albert Einstein';
+    $scope.pdfUrl = 'http://fastandfluid.com/publicdownloads/AngularJSIn60MinutesIsh_DanWahlin_May2013.pdf';
 
 
  }
