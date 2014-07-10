@@ -23,6 +23,9 @@
                 $scope.playerReady = true;
             });
 
+
+            $scope.pdfReady =false;
+
             // show the waiting screen
 
             waitingScreen.show();
@@ -88,15 +91,25 @@
 
 
 
+    $scope.scroll = 0;
+    $scope.pdfUrl ="https://bitcoin.org/bitcoin.pdf";
 
+
+/*
  $scope.init = function () {
     $scope.scroll = 0;
 
-    $scope.pdfName = 'Relativity: The Special and General Theory by Albert Einstein';
-    $scope.pdfUrl = 'http://fastandfluid.com/publicdownloads/AngularJSIn60MinutesIsh_DanWahlin_May2013.pdf';
+    $scope.pdfName = $scope.portfolioquestion.document.name;
+    $scope.pdfUrl =  $scope.portfolioquestion.document.document_id;
 
+ }*/
+    app.directive("ng-pdf", function(){
+	return {
+		restrict: "E",
+		template: "<button addbuttons>Click to add buttons</button>"
+	}
+});
 
- }
     $scope.getNavStyle = function(scroll) {
     if(scroll > 100) return 'pdf-controls fixed';
     else return 'pdf-controls';
@@ -165,6 +178,7 @@
                         $scope.reports_url = 'admin/course/' + course.id   + '/stats/';
 
                         return $scope.courseProfessors.$promise;
+
                     });
 
 
@@ -178,7 +192,12 @@
                                 if (portfolioquestion.video) {
                             youtubePlayerApi.videoId = portfolioquestion.video.youtube_id;
 
+
+
+
+
                         }
+
                                 $scope.setPortfolioQuestion(portfolioquestion);
                             }
                         });
@@ -191,6 +210,8 @@
                         $scope.alert.error(httpErrors[resp.status.toString()]);
                         waitingScreen.hide();
                     });
+
+
             }
             // ^^ como faz isso de uma formula angular ?
         }

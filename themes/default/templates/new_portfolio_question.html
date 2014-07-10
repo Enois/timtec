@@ -133,13 +133,13 @@ ng-app="edit-portfolio-question"
             <!-- DOCUMENT SECTION -->
             <div class="activity" ng-show="section==='document'">
                 <div class="row">
-                            <div class=" col-sm-12 col-lg-12 textcenter jumbotron"
+                            <div class=" col-sm-12 col-lg-12 textcenter "
                                  style="height: 419px"
-                                 ng-show="portfolioquestion.document.document_id">
+                                 ng-show="portfolioquestion.document.document_id && !pdfReady">
                                 <div class="middle" >
 
-                                   <div class="wrapper1" style="height: 300px;overflow-y: scroll;border: 1px solid grey;">
-                                        <ng-pdf  template-url="/static/templates/viewerPDF.html" ng-init="init()" canvasid="pdf" scale="1"></ng-pdf>
+                                   <div class="wrapper" style="height: 400px;width:auto;overflow-y: scroll;">
+                                        <ng-pdf  template-url="/static/templates/viewerPDF.html" canvasid="pdf" scale="2"></ng-pdf>
 
                                    </div>
 
