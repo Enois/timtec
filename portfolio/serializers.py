@@ -1,6 +1,6 @@
 __author__ = 'dali'
 from core.models import Video
-from .models import PortfolioQuestion, PortfolioAnswer, Comment, Document
+from .models import  Comment,Portfolio
 from rest_framework import serializers
 
 
@@ -11,35 +11,27 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'youtube_id',)
 
 
-class DocumentSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Document
-        fields = ('id', 'name', 'document_id',)
-
-
-class JSONSerializerField(serializers.WritableField):
-    pass
-
-
-class PortfolioQuestionSerializer(serializers.ModelSerializer):
+class PortfolioSerializer(serializers.ModelSerializer):
     video = VideoSerializer(required=False)
-    document = DocumentSerializer(required=False)
-    thumbnail = serializers.Field(source='thumbnail')
+    thumbnail_url = serializers.Field(source='get_thumbnail_url')
+    tags = serializers.Field(source='tags')
 
     class Meta:
-        model = PortfolioQuestion
-        fields = ('id', 'course', 'title', 'video', 'thumbnail', 'document', 'description', 'timestamp')
+        model = Portfolio
+        fields = ("id", "user", "name", "description", "timestamp", "video", "description", "thumbnail_url", "tags", "status",)
 
 
-class PortfolioAnswerSerializer(serializers.ModelSerializer):
+class PortfolioThumbSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = PortfolioAnswer
-
+        model = Portfolio
+        fields = ("id", "thumbnail",)
 
 
 class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
+        fields = ('id', 'user', 'text', 'portfolio', 'created_on',)
+
+

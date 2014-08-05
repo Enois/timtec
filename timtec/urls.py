@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin as django_admin
 django_admin.autodiscover()
-
+from portfolio.views  import AdminView
 from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
@@ -17,7 +17,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        AcceptTermsView)
+                        AcceptTermsView, HomePageViewSet)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -25,7 +25,7 @@ from forum.views import CourseForumView, QuestionView, QuestionCreateView, Quest
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats, CourseStatsByLessonViewSet
-from portfolio.views import PortfolioAnswerViewSet,PortfolioQuestionViewSet
+from portfolio.views import PortfolioViewSet, CommentViewSet, PortfolioView, PortfolioThumbViewSet ,PortfoliosView
 from rest_framework import routers
 from django_markdown import flatpages
 
@@ -50,8 +50,9 @@ router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
 router.register(r'reports', UserCourseStats)
 router.register(r'course_stats', CourseStatsByLessonViewSet)
-router.register('portfolio_question', PortfolioQuestionViewSet)
-router.register('portfolio_answer', PortfolioAnswerViewSet)
+router.register('portfolio', PortfolioViewSet, CommentViewSet)
+router.register(r'portfoliothumbs', PortfolioThumbViewSet)
+router.register('homepage', HomePageViewSet)
 
 
 
@@ -83,6 +84,11 @@ urlpatterns = patterns(
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)/$', QuestionView.as_view(), name='forum_question'),
     url(r'^forum/question/add/(?P<course_slug>[-a-zA-Z0-9_]+)/$', QuestionCreateView.as_view(), name='forum_question_create'),
+
+    #Portfolio
+    url(r'^portfolios/new/$', AdminView.as_view(template_name="portfolio.html")),
+    url(r'^portfolios/(?P<pk>[1-9][0-9]*)/$', PortfolioView.as_view(template_name="portfolio.html")),
+    url(r'^portfolios', PortfoliosView.as_view(), name='portfolios'),
 
     # Course Material
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/$', FileUploadView.as_view(), name='file_upload'),

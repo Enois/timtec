@@ -17,7 +17,7 @@ TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
 SITE_HOME = ''
-SITE_NAME = 'Timtec'
+SITE_NAME = 'ESCOLA DE JORNALISMO'
 SITE_DOMAIN = 'timtec.com.br'
 
 ADMINS = (
@@ -109,7 +109,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -190,9 +190,6 @@ PIPELINE_JS = {
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
             'angular-gettext/dist/angular-gettext.js',
-            'angular-pdf/dist/angular-pdf.js',
-            'angular-pdf/example/js/lib/pdf.js',
-            'angular-pdf/example/js/lib/pdf.worker.js',
             'intro.js/intro.js',
             'js/consolelogfallback.js',
             'js/django.js',
@@ -201,6 +198,8 @@ PIPELINE_JS = {
             'js/angular-youtube.js',
             'js/truncate.js',
             'js/layout.js',
+            'js/jquery-thumbnail.js',
+            'js/jquery-scrolltop.js',
         ),
         'output_filename': 'js/all.js',
     },
@@ -326,6 +325,17 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/core.js',
     },
+    'portfolio': {
+        'source_filenames': (
+            'js/portfolio/app.js',
+            'js/portfolio/controllers.js',
+            'js/portfolio/services.js',
+            'js/portfolio/directives.js',
+            'js/directives/markdowneditor.js',
+            'js/directives/codemirror.js',
+        ),
+        'output_filename': 'js/portfolio.js',
+    },
 }
 
 MOMMY_CUSTOM_FIELDS_GEN = {
@@ -346,6 +356,8 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissions'
+
+
     ],
 
     'DEFAULT_FILTER_BACKENDS': [

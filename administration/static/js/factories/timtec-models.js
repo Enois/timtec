@@ -169,7 +169,6 @@
         return Professor;
     }]);
 
-
     /**
      * Lesson model. The Course has many Lessons
      */
@@ -193,32 +192,6 @@
         };
         return Lesson;
     }]);
-
-
-  /**
-     * PortfolioQuestion model. The Course has many PortfolioQuestion
-     */
-
-    app.factory('PortfolioQuestion', ['$resource', function($resource) {
-        var resourceConfig = {
-            'update': {'method': 'PUT'}
-        };
-        var PortfolioQuestion = $resource('/api/portfolio_question/:id', {'id':'@id'}, resourceConfig);
-
-        PortfolioQuestion.prototype.isDraft = function() { return this.status === 'draft'; };
-        PortfolioQuestion.prototype.isListed = function() { return this.status === 'listed'; };
-        PortfolioQuestion.prototype.isPublished = function() { return this.status === 'published'; };
-
-        PortfolioQuestion.prototype.saveOrUpdate = function() {
-            return this.id > 0 ? this.$update() : this.$save();
-        };
-         PortfolioQuestion.prototype.hasVideo = function(){
-            return this.video && this.video.youtube_id &&
-                   this.video.youtube_id.length > 0;
-        };
-        return PortfolioQuestion;
-    }]);
-
 
 
     /**

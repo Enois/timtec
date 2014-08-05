@@ -8,6 +8,7 @@ from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.db.models import Q
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from accounts.forms import ProfileEditForm
 from accounts.serializers import TimtecUserSerializer
@@ -95,3 +96,4 @@ class TimtecUserViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
     serializer_class = TimtecUserSerializer
     ordering = ('first_name', 'username',)
+    permission_classes = (IsAuthenticatedOrReadOnly,)

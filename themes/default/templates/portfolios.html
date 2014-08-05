@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <!--  PORTFOLIO   -->
+        <div id="portfolio">
+            <div class="container">
+                <div class="header-portfolios">
+                       <h1>PORTFOLIO</h1>
+                       <h2>Get the lastest insights from Desk</h2>
+                    </div>
+                <div class="row">
+                    {% for portfolio in portfolios %}
+                    <div class="col-sm-6 col-md-3">
+                        <div class="item-portfolio">
+	                      <img src="{{ portfolio.get_thumbnail_url }}" alt="" title=""/>
+
+	                       <div class="caption">
+		                     <a href="/portfolios/{{portfolio.pk}}/">{{ portfolio.name }}</a>
+		                     <p>{{ portfolio.description }}</p>
+	                      </div>
+
+                        </div>
+                        <div class="user-data">
+                            <a href="/profile/{{ portfolio.user.username }}"><i class="fa fa-user fa-lg"></i>{{portfolio.user.first_name}} {{portfolio.user.last_name}}</a>
+                         </div>
+                    </div>
+                      {% endfor %}
+                 </div>
+            </div>
+             <div class="container-btn-section2">
+                        <a class="btn btn-outline-inverse btn-lg btn-section2"  href="#">Ver mais</a>
+                       </div>
+        </div>
+
+
+       <!-- END Portfolio  -->
+{% endblock %}

@@ -559,50 +559,6 @@ ng-app="new-course"
                 </section>
                 <!-- END COURSE-LESSONS -->
 
-             <!-- PORTFOLIO QUESTION -->
-
-                        <section class="lessons col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <!-- PAGE-HEADER-DOUBLE -->
-                            <div class="page-header-double">
-                                <h3 class="tpad"> {% trans 'Portfolios' %}</h3>
-                            </div>
-
-                            <div class="row" ng-repeat="pq in portfolio_questions">
-                                <!-- COL-LG-3 -->
-                                <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                                    {% verbatim %}
-                                    <img ng-src="{{ pq.thumbnail }}" class="img-thumbnail" >
-                                    {% endverbatim %}
-                                </div>
-
-
-                                <!-- COL-LG-9 -->
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                    <a {% verbatim %}href="portfolios/{{pq.id}}"{% endverbatim %} class="title editable" ng-bind="pq.title">{% trans 'Portfolio Question name' %}</a>
-                                    <p>
-                                        <h1 class="title editable" ng-bind="pq.title">{% trans 'Portfolio name' %}<span class="text-muted">&raquo; </span></h1> <modalmarkdowneditor on-save="savePortfolioQuestion(pq)" title="{% trans 'Portfolio description' %}" content="pq.description"></modalmarkdowneditor>
-                                    <h1 class="title editable" ng-bind="pq.document.name"></h1>
-                                         <modalmarkdowneditor on-save="savePortfolioQuestion(pq)" title="{% trans 'Created on' %}" content="pq.document.document_id"></modalmarkdowneditor>
-
-
-                                    </p>
-
-                                </div>
-                                <!-- END COL-LG-9 -->
-
-                            </div>
-                            <div class="row textcenter">
-                                <div class="col-lg-12">
-                                    {% verbatim %}
-                                    <a href="/admin/courses/{{course.id}}/portfolios/new" class="col-lg-12 btn btn-lg btn-default uppercase add-lesson">{% endverbatim %}{% trans 'Add Portfolio' %}</a>
-                                </div>
-                            </div>
-                            <!-- END LESSON -->
-                        </section>
-                <!-- END PORTFOLIO QUESTION -->
-
-
-
             </div>
             <div class="col-md-3 col-sm-4 hidden-xs">
                 <!-- COURSE-SUMMARY -->
@@ -668,7 +624,7 @@ ng-app="new-course"
                                     {% verbatim %}
                                     <img ng-src="{{ professor.user_info.picture }}"
                                          onerror="this.src='/static/img/avatar-default.png'"
-                                         class="img-thumbnail">
+                                         class="img-circle">
                                     {% endverbatim %}
                                 </div>
                                 <div class="col-sm-12">
@@ -693,7 +649,7 @@ ng-app="new-course"
                             {% for course_professor in course.courseprofessor_set.all %}
                                 <div id="{{ course_professor.user.username }}" class="instructor row">
                                     <div class="instructor-photo col-sm-12">
-                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
+                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-circle">
                                     </div>
                                     <div class="col-sm-12">
                                         <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>

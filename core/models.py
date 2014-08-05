@@ -18,6 +18,20 @@ from autoslug import AutoSlugField
 from accounts.models import TimtecUser
 from notes.models import Note
 
+import re
+import os
+import hashlib
+
+
+def path_and_rename(path):
+    def wrapper(instance, filename):
+        root, ext = os.path.splitext(filename)
+        m = hashlib.md5()
+        m.update(root.encode('utf-8'))
+        filename = m.hexdigest() + ext
+        # return the whole path to the file
+        return os.path.join(path, filename)
+    return wrapper
 
 class Video(models.Model):
     name = models.CharField(max_length=255)
@@ -334,3 +348,21 @@ class EmailTemplate(models.Model):
     name = models.CharField(max_length=50)
     subject = models.CharField(max_length=255)
     template = models.TextField()
+
+
+class HomePage(models.Model):
+    image_section_initial=models.ImageField(_('Image_section_initial'), upload_to=path_and_rename('home_page_pictures'), blank=False)
+    text_section_initial=models.TextField(_('Text_section_initial'), blank=False)
+    text_section_mentator=models.TextField(_('Text_section_mentator'), blank=False)
+    image_section_enois=models.ImageField(_('Image_section_enois'), upload_to=path_and_rename('home_page_pictures'), blank=False)
+    text_section_enois=models.TextField(_('Text_section_enois'), blank=False)
+
+    def get_image_section_initial_url(self):
+
+        location = "/%s/%s" % (settings.MEDIA_URL, self.image_section_initial)
+        return re.sub('/+', '/', location)
+
+    def get_image_section_enois_url(self):
+
+        location = "/%s/%s" % (settings.MEDIA_URL, self.image_section_enois)
+        return re.sub('/+', '/', location)

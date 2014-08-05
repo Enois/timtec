@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% if user.is_authenticated %}
+    {% load usergroup %}
+{% endif %}
+{% load compressed %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+
+{% block js %}
+{{ block.super }}
+{% compressed_js 'portfolio' %}
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+window.userId = {{ user.pk }};
+</script>
+<!-- COURSE -->
+<div id="course" class="course-intro" ng-app="portfolio" ng-controller="PortfolioEditController">
+
+    {% if in_admin %}
+        <!-- ACTIONS -->
+        <div class="actions" fixed-bar>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-5">
+                        <button class="btn btn-danger" title="{% trans 'Delete Portfolio' %}" ng-click="deletePortfolio()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this portfolio' %}</button>
+                    </div>
+                    <div class="col-xs-7 textright">
+                        <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
+                        <button class="btn btn-success" ng-click="savePortfolio()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                        <button class="btn btn-warning" ng-click="publishPortfolio()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END ACTIONS -->
+    {% endif %}
+
+    <!-- HEADER -->
+    <header class="container">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <!-- ROW -->
+            <div class="row">
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                {% if in_admin %}
+                    <h1>
+                        <span ng-class="{'blink-text-danger':errors.name}" ng-model="portfolio.name"
+                        placeholder="{% trans 'Portfolio name' %}" contenteditable="true"
+                        tabindex="1"></span>
+                    </h1>
+                {% else %}
+                    <h1>{{ portfolio.name }}</h1>
+                {% endif %}
+                </div>
+            </div>
+            <!-- END ROW -->
+        </div>
+        <!-- END PAGE-HEADER -->
+    </header>
+    <!-- END HEADER -->
+
+    <!-- COURSE-CONTENT -->
+    <section id="course-content" class="container">
+        <!-- ROW -->
+        <div class="row">
+            <!-- COL-LG-9 -->
+            <div class="col-md-9 col-sm-8 col-xs-12" ng-init="mediaSection='thumbnail'">
+
+                {% if in_admin %}
+                    <!-- ADD CONTENT -->
+                    <div class="add-content row">
+                        <div class="col-lg-6">
+                            <button ng-click="mediaSection='video'"
+                                    ng-class="{'btn-success':mediaSection=='video'}"
+                                    class="btn btn-default uppercase selected">{% trans 'Video' %}</button>
+
+                            <button class="btn btn-default uppercase"
+                                    ng-class="{'btn-success':mediaSection=='thumbnail'}"
+                                    ng-click="mediaSection='thumbnail'">{% trans 'Thumbnail' %}</button>
+                        </div>
+                    </div>
+                    <!-- END ADD CONTENT -->
+
+                    <section class="thumbnail" ng-show="mediaSection=='thumbnail'" ng-init="thumbfile=null">
+
+                        <div class="row" ng-show="addThumb" ng-init="addThumb=(thumbfile===null)">
+
+                            <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
+                                <div class="centered">
+                                    <div class="form-group">
+                                        <i class="fa fa-picture-o fa-4x"></i>
+                                        <h1 class="bottom top">{% trans 'Thumbnail' %}</h1>
+                                        <p>({% trans "min-width" %}: 845px)</p>
+
+                                        <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
+                                    </div>
+
+                                    <p>
+                                        <br>
+                                        <button class="btn btn-danger btn-lg uppercase"
+                                                ng-click="thumbfile=null; addThumb=!portfolio.thumbnail_url">{% trans 'Cancel' %}</button>
+
+                                        <button class="btn btn-success btn-lg uppercase"
+                                                ng-click="addThumb=(thumbfile===null); saveThumb()">{% trans 'Add' %}</button>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="!addThumb">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <img local-image ng-model="thumbfile" class="img-responsive"/>
+                                {% verbatim %}
+                                <img ng-src="{{portfolio.thumbnail_url}}" class="img-responsive" ng-show="!thumbfile"/>
+                                {% endverbatim %}
+                            </div>
+
+                            <div class="col-lg-12 textright">
+                                <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
+                                        ng-click="addThumb=true">{% trans 'Change thumbnail' %}</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--  COURSE-VIDEO  -->
+                    <section class="video" ng-show="mediaSection=='video'">
+                        <div class="row">
+                            <div class="col-xs-12" ng-show="portfolio.video.youtube_id && !playerReady">
+                                <div class="waiting textcenter jumbotron" style="height: 515px">
+                                    <div class="middle">
+                                        <i class="fa fa-refresh fa-5x"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12" style="overflow:hidden;"
+                                 ng-style="{'margin-left': portfolio.hasVideo() && playerReady ?'':'-2000px'}">
+
+                                <div id="youtube-player" player-height="475px" player-width="100%" youtube-player></div>
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        <p class="video-title" ng-model="portfolio.video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                    </div>
+                                    <div class="col-lg-2 textcenter">
+                                        <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                                ng-click="portfolio.video.youtube_id=''">{% trans 'Change video' %}</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="add-video-intro col-sm-12 col-lg-12 textcenter"
+                                 ng-show="!portfolio.video.youtube_id">
+                                <div class="centered">
+                                    <div class="form-group">
+                                        <i class="fa fa-youtube-play fa-4x"></i>
+                                        <h1 class="top">{% trans 'portfolio video' %}</h1>
+                                        <input type="text" tabindex="8" ng-model="youtube_id" class="form-control"/>
+                                    </div>
+
+                                    <p>
+                                        <button class="btn btn-danger btn-lg uppercase"
+                                                ng-click="portfolio.video.youtube_id=''">{% trans 'Cancel' %}</button>
+                                        <button tabindex="9"
+                                                class="btn btn-success btn-lg uppercase"
+                                                ng-show="!portfolio.video.youtube_id"
+                                                ng-click="portfolio.video.youtube_id=youtube_id">{% trans 'Add' %}</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--  END COURSE-VIDEO  -->
+                {% else %}
+                    <!-- COURSE-VIDEO -->
+
+                    <section class="video">
+                        <!-- ROW -->
+
+                        <div class="row">
+                            {% with yid=portfolio.video.youtube_id %}
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-sx-12">
+                                    <iframe id="youtube-player" type="text/html" frameborder="0" src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" allowfullscreen>
+                                    </iframe>
+                                </div>
+                            {% endwith %}
+                        </div>
+                        <!-- END ROW -->
+                    </section>
+                      <section class="thumbnail">
+                        <!-- ROW -->
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4">
+                                 <div class="thumbnail">
+                              {% verbatim %}
+                                <img ng-src="{{portfolio.thumbnail_url}}" class="img-responsive"/>
+                                {% endverbatim %}
+                                <div class="caption">
+                                <h3>Description</h3>
+                                <p>{{portfolio.description}}</p>
+                             </div>
+                          </div>
+                          </div>
+                        </div>
+                        <!-- END ROW -->
+                    </section>
+                    <!-- END COURSE-VIDEO -->
+                {% endif %}
+
+                <!-- COURSE-INFO -->
+                <section class="course-info">
+                    <!-- ROW -->
+                    <div class="row">
+                         <div class="application col-sm-6 col-xs-12">
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.description}" class="fa fa-angle-double-right"></i> {% trans "Description" %}</h3>
+                            </div>
+
+                            {% if in_admin %}
+                                <modalmarkdowneditor tabindex="6" on-save="savePortfolio()" title="{% trans 'Description' %}" content="portfolio.description"></modalmarkdowneditor>
+                            {% else %}
+                                <div class="content">{{ portfolio.description|timtec_markdown }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                </section>
+                <!-- END COURSE-INFO -->
+            </div>
+            <div class="col-md-3 col-sm-4 hidden-xs">
+                <!-- COURSE-SUMMARY -->
+                <section class="summary">
+                    <!-- COURSE-INSTRUCTORS -->
+                    <section class="instructors">
+
+                        {% if in_admin %}
+                            <!-- INSTRUCTOR -->
+                            <div id="" class="instructor row">
+                                <div class="instructor-photo col-sm-12">
+                                    {% verbatim %}
+                                    <img ng-src="{{ user.picture }}"
+                                         onerror="this.src='/static/img/avatar-default.png'"
+                                         class="img-circle">
+                                    {% endverbatim %}
+                                </div>
+                                <div class="col-sm-12">
+                                    <h1 class="fullname bottom top" ng-bind="user.username">{% trans 'Name' %}</h1>
+                                    <h2 class="job-title top"></h2>
+                                    <modalmarkdowneditor title="{% trans 'Biography' %}" on-save="saveUser(user)" content="user.biography"></modalmarkdowneditor>
+                                </div>
+                            </div>
+                            <!-- END INSTRUCTOR -->
+                        {% else %}
+
+                            <div class="page-header-double top">
+                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Created by" %}</h3>
+                            </div>
+
+
+                                <div class="instructor row">
+                                {% verbatim %}
+                                <strong>{{ portfolio.user.username }}</strong>
+
+                                    <div class="instructor-photo col-sm-12">
+                                        <img style="content:url({{ user.picture }})" class="img-circle">
+
+                                    </div>
+                                    {% endverbatim %}
+                                    <div class="col-sm-12">
+                                        <h1 class="fullname bottom top">{{ user.first_name }} {{ user.last_name }}</h1>
+                                        <h2 class="job-title top">{{ user.get_job_display }}</h2>
+                                        <p>{{ user.biography|timtec_markdown }}</p>
+                                    </div>
+                                </div>
+
+
+                        {% endif %}
+
+                    </section>
+                    <!-- END COURSE-INSTRUCTORS -->
+                </section>
+                <!-- END COURSE-SUMMARY -->
+            </div>
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- END COURSE CONTENT -->
+
+    {% if in_admin %}
+        <!-- ALERT -->
+        <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
+            <div class="alert fade in" ng-class="'alert-' + alert.type">
+                <button type="button" class="close" ng-click="alert.hidden=true">×</button>
+                <h4 ng-bind="alert.title"></h4>
+                <div class="bottom">
+                    <ol class="bottom">
+                        <li ng-repeat="message in alert.messages" ng-bind="message"></li>
+                    </ol>
+                </div>
+                <div ng-show="alert.showControls">
+                    <hr/>
+                    <button type="button" class="btn" ng-class="'btn-'+alert.type"
+                             ng-click="alert.hidden=true">{% trans 'Close' %}</button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+<!-- END COURSE -->
+
+{% endblock %}

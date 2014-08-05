@@ -1,4 +1,4 @@
-from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage
+from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage, HomePage
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
@@ -155,3 +155,13 @@ class CourseNoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ('id', 'slug', 'name', 'lessons_notes', 'course_notes_number',)
+
+
+class HomePageSerializer(serializers.ModelSerializer):
+
+      image_section_initial = serializers.Field(source='get_image_section_initial_url')
+      image_section_enois = serializers.Field(source='get_image_section_enois_url')
+
+      class Meta:
+          model = HomePage
+

@@ -16,13 +16,14 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
+
 from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
-                          CourseStudentSerializer,)
+                          CourseStudentSerializer,HomePageSerializer)
 
-from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage, CourseStudent
+from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage, CourseStudent, HomePage
 
 from .forms import ContactForm, AcceptTermsForm
 
@@ -166,6 +167,7 @@ class CourseStudentViewSet(viewsets.ModelViewSet):
     filter_fields = ('course', 'user',)
 #     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseStudentSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
@@ -271,6 +273,12 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return StudentProgress.objects.filter(user=user)
+
+
+class HomePageViewSet(viewsets.ModelViewSet):
+    model = HomePage
+    serializer_class = HomePageSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):

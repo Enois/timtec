@@ -1,5 +1,6 @@
 @import '../../../../bower_components/bootstrap/less/bootstrap.less';
 @import 'flatui/checkbox-and-radio.less';
+@import url(http://fonts.googleapis.com/css?family=Quicksand);
 
 // COLORS
 @gray-darker: lighten(#000, 13.5%); // #222
@@ -16,10 +17,13 @@
 
 
 // TYPOGRAPHY
-body { color:#333; }
+body { color:#333;
+        }
+.wrapper {background-color: #EBEBEB;}
 // Headings
 h1, h2, h3, h4, h5, h6 {
-  font-family:'Questrial';
+//  font-family:'Questrial';
+  font-family: 'Quicksand', sans-serif;
   font-weight: normal;
 }
 h1 { font-size:28px; }
@@ -352,12 +356,7 @@ a, a:hover, a:active {
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 // ********************************************************************* //
 #main-navbar {
-  border-radius: 0;
-  font-family:'Questrial';
-  .navbar-brand {
-    font-weight: bold;
-    font-size: 22px;
-  }
+  font-family:'Quicksand';
   .form-group {
     margin-bottom: 15px;
   }
@@ -368,17 +367,12 @@ a, a:hover, a:active {
   .submit {
     line-height: 2.5;
   }
-  .navbar-toggle {
-    &:hover,
-    &:focus {
-      background-color: #002c50;
-    }
-  }
   .navbar-divider {
     @media (min-width: @screen-sm-min) {
-      box-shadow: inset 1px 0 0 rgba(255,255,255,.15);
-      border-right: 1px solid #000;
-      height: 50px;
+      box-shadow: inset 2px 0 0 rgba(255,255,255,.15);
+      border-right: 1px solid #5E5E5E;
+      height: 15px;
+      top:17px;
       width: 2px;
       margin: 0 5px;
     }
@@ -388,10 +382,6 @@ a, a:hover, a:active {
       height: 2px;
       margin: 0 5px;
     }
-  }
-  .navbar-collapse {
-    overflow: hidden;
-    max-height: initial;
   }
 
 }
@@ -409,18 +399,6 @@ a, a:hover, a:active {
   }
 }
 
-@media screen and (max-width: @screen-xs-max) {
-  #main-navbar {
-    color: #fff;
-    margin-bottom: 0;
-    a {
-      color: #fff;
-    }
-    label {
-      line-height: 1;
-    }
-  }
-}
 
 // HOMEPAGE
 // ********************************************************************* //
@@ -439,16 +417,20 @@ a, a:hover, a:active {
       }
       .text {
         color: #000;
-        font-family: "Questrial";
+        font-family: "Quicksand";
         position: absolute;
-        right: 15px;
-        top: 15px;
+        float: left;
+        right: 1%;
+        top: 10px;
+        width: 35%;
         p {
           margin: 0;
-          text-align: right;
+          text-align: left;;
         }
         .line1 {
           font-size: 3.4vw;
+          color: #fff;
+          font-weight: bold;
         }
         .line2 {
           font-size: 2.4vw;
@@ -480,10 +462,18 @@ a, a:hover, a:active {
       }
       @media (min-width: @screen-lg-min) {
         .text {
-          right: 95px;
-          top: 65px;
+        color: #000;
+        font-family: "Quicksand";
+        position: absolute;
+        float: left;
+        right: 6%;
+        top: 12%;
+        width: 28%;
           .line1 {
-            font-size: 3vw;
+          font-size: 3vw;
+          color: #fff;
+          font-weight: bold;
+          text-align: left;
           }
           .line2 {
             font-size: 2vw;
@@ -498,7 +488,7 @@ a, a:hover, a:active {
       margin-bottom: 36px;
       padding-bottom: 18px;
       h1 {
-        font-family: "Questrial";
+        font-family: "Quicksand";
         font-size: 6.5vw;
         font-weight: normal;
         margin: 0;
@@ -528,6 +518,7 @@ a, a:hover, a:active {
     // courses section
     #courses {
       .course {
+
         .img {
           width: 100%;
           span {
@@ -535,8 +526,8 @@ a, a:hover, a:active {
           }
         }
         .info {
-          padding: 10px;
-          height: 145px;
+          height:auto;
+          text-align: left;
           h3 {
             margin-bottom: 10px;
           }
@@ -595,10 +586,9 @@ a, a:hover, a:active {
 // COURSES BOXES FROM HOME AND COURSES PAGE
 // ********************************************************************* //
 #courses {
-    margin-bottom: 40px;
-    margin-top: 40px;
     .course {
       margin-bottom: 40px;
+      margin-top: 40px;
       overflow: hidden;
       position: relative;
         .course-link { // link wrapper
@@ -621,13 +611,16 @@ a, a:hover, a:active {
             .enroll {
               background-color: @brand-info;
             }
+            .enroll-student {
+              background-color: @brand-info;
+            }
           }
         } // .course-link
         .thumb-wrapper { // course thumbnail
           position: relative;
           width: 100%;
           .mouseover {
-            background-color: @brand-info;
+            background-color: @gray-dark;
             display: block;
             height: 195px;
             .opacity(0);
@@ -657,10 +650,10 @@ a, a:hover, a:active {
           }
         } // .info-box
         .info { // course info
-            background-color: @gray-lighter;
+            background-color: #ffffff;
             height: 153px;
             overflow: hidden;
-            padding: 15px;
+            padding: 15px 15px 0;
             .transition(all 0.25s ease);
             h3 {
                 color: @gray;
@@ -697,7 +690,7 @@ a, a:hover, a:active {
             width: 100%;
             background-color: @brand-success;
             color: #fff;
-            font-family: 'Questrial';
+            font-family: 'Quicksand';
             line-height: 3;
             .transition(all 0.25s ease);
             a {
@@ -868,16 +861,9 @@ a, a:hover, a:active {
       border-top-color: #444;
     }
     .navbar-divider {
-      border-top: 1px solid #444;
+      border-top: 2px solid #5E5E5E;
       @media (min-width: @screen-sm-min) {
-        border-right: 1px solid #444;
-      }
-    }
-    .navbar-toggle {
-      border-color: #666;
-      &:hover,
-      &:focus {
-        background-color: #444;
+        border-right: 2px solid #5E5E5E;
       }
     }
   }
@@ -968,10 +954,10 @@ a, a:hover, a:active {
     // ACTIONS - Admin
     // ********************************************************************* //
     .actions {
-      background-color: @gray-lighter;
+      background-color: #ffffff;
       margin-bottom: 20px;
       margin-top: -20px;
-      padding: 10px 0;
+      padding: 40px 0;
       position: relative;
       .status {
         margin-left: 40px;
@@ -1214,6 +1200,11 @@ a, a:hover, a:active {
       h1 {
         .bottom(0,0);
         .top(0,0);
+           font-weight: bold;
+           text-transform: uppercase;
+           font-size: 34px;
+           color: #72C6DE;
+      //
         span {
           display: block;
         }
@@ -2628,3 +2619,636 @@ ul.uploaded-files-list {
 
 
 
+/*Enois Design*/
+
+body {
+  font-family: "Quicksand", sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333333;
+  background-color: #ffffff;
+}
+
+.btn-en{
+ margin-top: 11px;;
+ color: #5E5E5E;
+ font-weight: bold;
+ font-size: 14px;
+}
+.btn-social{
+  color: #006686;
+  line-height: 2em;
+}
+.dropdown-menu-user{
+  margin-left: -93%;
+  opacity: 0.95;
+
+}
+.navMenu{
+  background-color: #FFFFFF;
+}
+
+.navbar-collapse{
+   background-color:#FFFFFF;
+}
+.btn-section1{
+  border-color: #ffffff;
+  color: #ffffff;
+}
+.btn-section1:hover {
+  border: 2px solid #50D5A8;
+  color: #50D5A8;
+  background-color: #ffffff;
+}
+.navMenu{
+  background-color: #FFFFFF;
+  margin-bottom: 0;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #006686;
+    font-weight: bold;
+    font-size: 13px;
+}
+.navbar-brand.navName {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+
+#nav-social > li > a {
+  color:#5E5E5E;
+}
+/* Extra extra Small */
+@media(max-width:320px){
+#navName{
+  font-size: 14px;
+  bottom: 7%;
+  position: absolute;
+}
+.navMenu{
+  height: 50px;
+}
+.btn-social {
+    margin-left: 10px;
+}
+}
+
+/* Extra Small */
+@media(min-width:321px) and (max-width:767px){
+#navName{
+  font-size: 18px;
+  bottom: 10%;
+  position: absolute;
+}
+.navMenu{
+  height: 70px;
+}
+.btn-social {
+
+    margin-left: 10px;
+}
+}
+
+/* Small */
+@media(min-width:768px) and (max-width:991px){
+#navName{
+  font-size: 22px;
+  bottom: 12%;
+  position: absolute;
+  left: 2%;
+}
+.navMenu{
+  height: 90px;
+}
+#navv{
+  display: table;
+  table-layout: fixed;
+  position: absolute;
+  bottom: 0;
+  right: 2%;
+}
+#navv > li > a {
+    padding: 10px 1px 10px 5px;
+}
+.navbar-collapse .navbar-nav.navbar-right:last-child {
+   right: 2%;
+}
+.navbar-default .navbar-nav > li > a {
+    font-size: 11px;
+}
+}
+
+/* Medium */
+@media(min-width:992px) and (max-width:1199px){
+#navName{
+  font-size: 26px;
+  bottom: 14%;
+  position: absolute;
+}
+.navMenu{
+  height: 100px;
+}
+#navv{
+  right: 2%;
+  display: table;
+  table-layout: fixed;
+  position: absolute;
+  bottom: 0;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #006686;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+}
+
+/* Large */
+@media(min-width:1200px){
+#navName{
+  font-size: 30px;
+  bottom: 0%;
+  position: absolute;
+}
+.navMenu{
+  height: 100px;
+}
+#navv{
+  right: 2%;
+  display: table;
+  table-layout: fixed;
+  position: absolute;
+  bottom: 0;
+
+}
+.navbar-collapse .navbar-nav.navbar-right:last-child {
+    right: 2%;
+}
+
+}
+
+
+.carousel-indicators {
+    bottom: 0;
+}
+
+#courses .container {
+  width: 95%;
+}
+
+#courses .icon-next {
+  right: -25px;
+   color: black;
+   font-size: 70px;
+   font-family: inherit;
+   margin-top: -40px;
+}
+
+#courses .icon-prev {
+  left: -25px;
+   color: black;
+   font-size: 70px;
+   font-family: inherit;
+   margin-top: -40px;
+}
+
+#courses .carousel-control.right {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+#courses .carousel-control.left {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+#courses {
+ background-color: #EBEBEB;
+}
+
+#courses .carousel-indicators .active {
+    background-color: #EBEBEB;
+
+}
+#courses  li.ng-scope {
+
+  border: 0px none #ffffff;
+}
+#courses .header-courses {
+    margin-bottom: -3%;
+    margin-left: 1%;
+    padding-top: 3%;
+}
+
+#courses .header-courses h1 {
+  color:#1CC6A1;
+  font-weight: 900;
+  font-size: 3.4vw;
+}
+
+#courses .header-courses h2 {
+  margin-top: -1%;
+  color:#838383;
+}
+
+
+#courses .btn-section2 {
+  border-radius: 0;
+  border: 2px solid #1CC6A1;
+  padding: 7px 12px;
+  color: #1CC6A1;
+  font-size: 18px;
+  width: 20%;
+}
+#courses .btn-section2:hover {
+  border: 2px solid #EBEBEB;
+  color: #EBEBEB;
+  background-color: #1CC6A1;
+}
+#courses .container-btn-section2{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 20px;
+
+}
+
+#mentores{
+    background-color: #FFC100;
+    color:#ffffff;
+}
+
+#mentores h2{
+   font-weight: bold;
+}
+#mentores .btn-section2 {
+  border-radius: 0;
+  border: 2px solid #ffffff;
+  padding: 7px 12px;
+  color: #ffffff;
+  font-size: 18px;
+}
+#mentores .container-btn-section2{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+#mentores .btn-section2:hover {
+  border: 2px solid #FFC100;
+  color: #FFC100;
+  background-color: #ffffff;
+}
+
+
+
+#mentores .slider-mentores{
+   display: block;
+   margin: 5% -40px 5% 50px;
+}
+#mentores .slider-mentores .slider{
+    padding-left: 6%;
+}
+
+#mentores .img-mentores-slider {
+  width: 40%;
+}
+#mentores .info-mentores {
+  text-align: left;
+  width: 70%;
+}
+#mentores .info-mentores h5{
+ margin-top: 9%;
+text-transform: uppercase;
+font-weight: bold;
+margin-bottom: auto;
+}
+#mentores .info-mentores p{
+  margin-top: 6px;
+}
+#mentores .carousel-control.left {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+#mentores .carousel-control.right {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+#mentores  .carousel-indicators .active {
+    background-color: #FFC100;
+
+}
+#mentores   li.ng-scope {
+
+  border: 0px none #FFC100;
+}
+
+#mentores .icon-next {
+   color: #ffffff;
+   font-size: 70px;
+   font-family: inherit;
+  top: 30%;
+}
+#mentores .mentores-text{
+  margin-top: 3%;
+}
+#mentores .icon-prev {
+  left: -25px;
+   color: #ffffff;
+   font-size: 70px;
+   font-family: inherit;
+  top: 30%;
+}
+
+#enois{
+   position: relative;
+   width: 100%;
+   background-color: #50D5A8;
+   margin-bottom: 3%;
+}
+#enois .text {
+ position: absolute;
+ color: #ffffff;
+}
+#enois img {
+   margin-left: 4%;
+}
+#enois .text h3 {
+  font-weight: bolder;
+font-size: 42px;
+margin-top: 7%;
+}
+#enois .text p {
+font-size: 16px;
+font-weight: bolder;
+}
+//FOOTER
+.ftr{
+    background-color: #1F1F1F;
+    padding-top: 4%;
+    padding-bottom: 1%;
+}
+.ftr address, .ftr a, .ftr p{
+    color: #fff;
+}
+.ftr ul li a:hover {
+    color: #bfd6e4;
+    padding-left: 5px;
+}
+.ftr .list-menu {
+  padding-top: 7%;
+}
+.ft_space{
+    padding: 0 10px;
+}
+.ftr .list-unstyled a{
+  font-weight: bold;
+}
+.ftr .btn-social {
+color: #EBEBEB;
+line-height: 2em;
+margin-top: -10%;
+}
+.ftr .btn-social .fa-inverse {
+ color:  #1F1F1F;
+}
+.ftr .btn-default {
+    background-color: #333333;
+    border: medium none !important;
+    color: #e2e2e2;
+  }
+//END FOOTER
+.scroll-top {
+   position:fixed;
+   bottom:0;
+   right:6%;
+   z-index:100;
+   background: #ffcc33;
+   font-size:24px;
+   border-top-left-radius:3px;
+   border-top-right-radius:3px;
+}
+.scroll-top a:link,.scroll-top a:visited {
+  color:#222;
+}
+
+#main-navbar .dropdown-enois{
+
+   color: #006686;
+   opacity: 0.95;
+   width: auto;
+}
+
+.dropdown-menu > li > a {
+    color: #006686;
+}
+
+#courses .enroll-student { // go to course link
+            width: 100%;
+            background-color: #ffffff;
+            color:  #1F1F1F;
+            font-family: 'Quicksand';
+            line-height: 4;
+            .transition(all 0.25s ease);
+            a {
+              color: #fff;
+              display: block;
+              line-height: 3;
+            }
+            .enroll-link {
+              float: right;
+              margin-right: 3%;
+
+            }
+            .btn {
+              border-radius: 6px;
+              background-color: #1CC6A1;
+              font-size: 12px;
+            }
+            .student-number {
+              margin-left: -20%;
+              font-size: 12px;
+              font-weight: bold;
+            }
+            .fa {
+                margin: 0 9px;
+            }
+        } // .enroll
+
+// Thumbnail Caption
+
+.item-portfolio {
+	width: 250px;
+    height: 230px;
+	border:6px solid #FEFEFE;
+	margin: 20px 10px 10px;
+    border-radius: 6px;
+	/* required to hide the image after resized */
+	overflow:hidden;
+
+	/* for child absolute position */
+	position:relative;
+
+	/* display div in line */
+
+}
+
+.item-portfolio .caption {
+ width: 250px;
+    height: 230px;
+
+	background:#ffffff;
+	color:#000;
+	font-weight:bold;
+   padding-top: 15%;
+
+	/* fix it at the bottom */
+	position:absolute;
+	text-align: center;
+
+	/* hide it by default */
+	display:none;
+
+	/* opacity setting */
+	filter:alpha(opacity=80);    /* ie  */
+	-moz-opacity:0.8;    /* old mozilla browser like netscape  */
+	-khtml-opacity: 0.8;    /* for really really old safari */
+	opacity: 0.8;    /* css standard, currently it works in most modern browsers like firefox,  */
+
+}
+
+.item-portfolio .caption a {
+	text-decoration:none;
+	color:#000000;
+	font-size:23px;
+    font-weight: bold;
+
+	/* add spacing and make the whole row clickable*/
+	padding:5px;
+	display:block;
+}
+
+#portfolio .user-data {
+  margin-left: 10%;
+}
+#portfolio .user-data a{
+  color:#FF936F;
+  font-weight: bold;
+}
+#portfolio .user-data a:hover {
+  text-decoration: underline;
+}
+#portfolio .user-data i{
+  color: #333333;
+  padding-right: 2%;
+}
+
+.item-portfolio .caption p {
+    font-size: 11pt;
+    line-height: 15pt;
+    max-height: 90pt;
+    overflow: hidden;
+    position: relative;
+    width: 95%;
+}
+
+.item-portfolio .caption p:after
+{
+    display: block;
+    position: absolute;
+    content: "…";
+    bottom: 0;
+    right: 0;
+}
+.item-portfolio img {
+	border:0;
+    width: 250px;
+    height: 230px;
+
+	/* allow javascript moves the img position*/
+	position:absolute;
+}
+
+.clear {
+	clear:both;
+}
+//end Thumbnail Caption
+
+//PORTFOLIO SECTION
+#portfolio {
+  background-color: #EBEBEB;
+}
+#portfolio .header-portfolios {
+    margin-left: 1%;
+    padding-top: 2%;
+}
+
+#portfolio .header-portfolios h1 {
+  color:#FF936F;
+  font-weight: 900;
+  font-size: 3.4vw;
+}
+
+#portfolio .header-portfolios h2 {
+  margin-top: -1%;
+  color:#838383;
+}
+
+#portfolio .btn-section2 {
+  border-radius: 0;
+  border: 2px solid #FF936F;
+  padding: 7px 12px;
+  color: #FF936F;
+  font-size: 18px;
+  width: 20%;
+}
+#portfolio .btn-section2:hover {
+  border: 2px solid #EBEBEB;
+  color: #EBEBEB;
+  background-color: #FF936F;
+}
+#portfolio .container-btn-section2{
+  display: block;
+  padding-bottom: 2%;
+  padding-top: 2%;
+  text-align: center;
+}
+//end PORTFOLIO SECTION
+
+//AROW SCROLL TOP
+.scroll-top-wrapper {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    text-align: center;
+    z-index: 99999999;
+    background-color: #1F1F1F;
+    color: #eeeeee;
+    width: 50px;
+    height: 48px;
+    line-height: 48px;
+    right: 1%;
+    bottom: 3%;
+    padding-top: 2px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+.scroll-top-wrapper:hover {
+    background-color: #888888;
+}
+.scroll-top-wrapper.show {
+    visibility:visible;
+    cursor:pointer;
+    opacity: 1.0;
+}
+.scroll-top-wrapper i.fa {
+    line-height: inherit;
+}
+//END AROW SCROLL
