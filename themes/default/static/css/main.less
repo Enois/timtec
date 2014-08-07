@@ -600,22 +600,32 @@ a, a:hover, a:active {
               .opacity(0.4);
             }
             .info {
-              background-color: rgba(52,152,219,0.3);
+              background-color: lightgray;
               h3, .abstract {
-                color: #000;
-              }
-              .instructors {
-                color: @gray;
+                color: black;
               }
             }
             .enroll {
-              background-color: @brand-info;
+              background-color: lightgray;
             }
             .enroll-student {
-              background-color: @brand-info;
+              background-color: lightgray;
+              .btn{
+                background-color: #ffffff;
+                color: #000000;
+              }
+            }
+            .student-number{
+              color: #ffffff;
+              font-weight: bold;
             }
           }
         } // .course-link
+      .thumb-wrapper:hover{
+     filter: url('../js/filters.svg#grayscale'); /* Firefox 3.5+ */
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1);
+      }
         .thumb-wrapper { // course thumbnail
           position: relative;
           width: 100%;
@@ -1588,7 +1598,17 @@ a, a:hover, a:active {
     .top(25px);
   }
 }
-
+#course .thumbnail {
+  img {
+    filter: url('../js/filters.svg#grayscale'); /* Firefox 3.5+ */
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1); /* Webkit Nightlies & Google Chrome Canary */
+  }
+  img:hover{
+	filter: none; /* Applies to FF + IE */
+	-webkit-filter: grayscale(0);
+  }
+}
 #course.course-stats {
   .students, .lessons {
     margin: 20px 0 0;
