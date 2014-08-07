@@ -12,31 +12,11 @@
                 '403': 'Você não tem permissão para ver conteúdo nesta página.',
                 '404': 'Este curso não existe!'
             };
-
-            // vv como faz isso de uma formula angular ?
-            var match = document.location.href.match(/portfolios\/([0-9]+)/);
             $scope.portfolio = new Portfolio();
             $scope.user = new User();
             window.s = $scope;
-            console.log(window.userId);
-            $scope.portfolio.user = window.userId;
-
-            if( match ) {
-                $scope.portfolio.$get({id: match[1]})
-                    .then(function(portfolio){
-                        if(portfolio.video) {
-                            youtubePlayerApi.videoId = portfolio.video.youtube_id;
-                        }
-                        document.title = 'Portfolio: {0}'.format(portfolio.name);
-                        $scope.addThumb = !portfolio.thumbnail_url;
-
-                    }).then(function(){
-                        $scope.user.$get({id: $scope.portfolio.user});
-                        return $scope.user.promise;
-                    })
-
-            }
-            // ^^ como faz isso de uma formula angular ?
+        //    console.log(window.userId);
+        //    $scope.portfolio.user = window.userId;
 
             var player;
             $scope.playerReady = false;
@@ -56,9 +36,9 @@
             function showFieldErrors(response) {
                 $scope.errors = response.data;
                 var messages = [];
-                for (var att in response.data) {
+                for(var att in response.data) {
                     var message = response.data[att];
-                    if (Portfolio.fields && Portfolio.fields[att]) {
+                    if(Portfolio.fields && Portfolio.fields[att]) {
                         message = Portfolio.fields[att].label + ': ' + message;
                     }
                     messages.push(message);
@@ -86,7 +66,7 @@
                 if(!$scope.portfolio.hasVideo()){
                     delete $scope.portfolio.video;
                 }
-                $scope.portfolio.save()
+                $scope.portfolio.saveOrUpdate()
                     .then(function(){
                         return $scope.saveThumb();
                     })
@@ -108,6 +88,41 @@
                         document.location.href = '/';
                     });
             };
+
+
+
+               // vv como faz isso de uma formula angular ?
+            var match = document.location.href.match(/portfolio\/(student)\/(new|\d+)/);
+             console.log(match[1]);
+
+            if( match ) {
+                $scope.isNewPortfolio = ('new' === match[2]);
+                $scope.user.$get({id: 2})
+                    .then(function(user){
+                        $scope.portfolio.user=user.id;
+
+
+
+                        return $scope.user.promise;
+                    });
+                Portfolio.query({id: match[2]}).$promise
+                    .then(function(portfolio){
+                  $scope.portfolio=portfolio;
+                  document.title = 'Portfolio: {0}'.format(portfolio.name);
+                  $scope.addThumb = !portfolio.thumbnail_url;
+                        if(portfolio.video){
+                            youtubePlayerApi.videoId = portfolio.video.youtube_id;
+                        }
+
+                })  ['catch'](function(resp){
+                        $scope.alert.error(httpErrors[resp.status.toString()]);
+                    })['finally'](function(){
+                        $scope.statusList = Portfolio.fields.status.choices;
+                    });
+
+            }
+
+
 
         }
     ]);

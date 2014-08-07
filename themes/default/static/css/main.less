@@ -595,6 +595,7 @@ a, a:hover, a:active {
           display: block;
           position: relative;
           cursor: pointer;
+
           &:hover {
             .mouseover {
               .opacity(0.4);
@@ -694,8 +695,13 @@ a, a:hover, a:active {
                 max-height: 36px;
                 position: relative;
                 overflow: hidden;
+              :hover{
+                color: #000000;
+              }
             }
+
         } // .info
+
         .enroll { // go to course link
             width: 100%;
             background-color: @brand-success;

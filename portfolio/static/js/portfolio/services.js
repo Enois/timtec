@@ -2,9 +2,11 @@
 (function (angular) {
     'use strict';
     /* Services */
+
      var app = angular.module('portfolio.services', []);
 
-     app.factory('Portfolio', ['$resource', function($resource) {
+     app.factory('Portfolio', ['$resource', 'getRestOptions', function($resource, getRestOptions) {
+
         var Portfolio = $resource('/api/portfolio/:id', {'id':'@id'});
 
         Portfolio.prototype.isDraft = function() { return this.status === 'draft'; };
@@ -19,9 +21,12 @@
             if(!this.status) this.status = 'draft';
             return this.id > 0 ? this.$update() : this.$save();
         };
-
+        getRestOptions('/api/portfolio').success(function(data) {
+            Portfolio.fields = angular.copy(data.actions.POST);
+        });
         return Portfolio;
     }]);
+
 
  app.factory('User', function($resource){
         return $resource('/api/user/:id', {'id':'@id'});
@@ -57,6 +62,19 @@
         };
 
         return vd;
+    }]);
+
+
+
+      app.factory('getRestOptions', ['$http', function($http){
+        return function(url){
+            return $http({
+                method:'POST',
+                url: url,
+                data:'_method=OPTIONS',
+                headers:{'Content-Type':'application/x-www-form-urlencoded'}
+            });
+        };
     }]);
 
 

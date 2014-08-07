@@ -86,8 +86,8 @@ urlpatterns = patterns(
     url(r'^forum/question/add/(?P<course_slug>[-a-zA-Z0-9_]+)/$', QuestionCreateView.as_view(), name='forum_question_create'),
 
     #Portfolio
-    url(r'^portfolios/new/$', AdminView.as_view(template_name="portfolio.html")),
-    url(r'^portfolios/(?P<pk>[1-9][0-9]*)/$', PortfolioView.as_view(template_name="portfolio.html")),
+    url(r'^portfolio/(?P<username>[\w.+-]+)?/new/$', AdminView.as_view(template_name="portfolio.html")),
+    url(r'^portfolio/(?P<username>[\w.+-]+)?/$', PortfolioView.as_view(template_name="portfolio.html")),
     url(r'^portfolios', PortfoliosView.as_view(), name='portfolios'),
 
     # Course Material

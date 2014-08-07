@@ -50,9 +50,8 @@ window.userId = {{ user.pk }};
                 {% if in_admin %}
                     <h1>
                         <span ng-class="{'blink-text-danger':errors.name}" ng-model="portfolio.name"
-                        placeholder="{% trans 'Portfolio name' %}" contenteditable="true"
-                        tabindex="1"></span>
-                    </h1>
+                              placeholder="{% trans 'Portfolio name' %}" contenteditable="true"></span></h1>
+
                 {% else %}
                     <h1>{{ portfolio.name }}</h1>
                 {% endif %}
@@ -249,11 +248,7 @@ window.userId = {{ user.pk }};
                                          class="img-circle">
                                     {% endverbatim %}
                                 </div>
-                                <div class="col-sm-12">
-                                    <h1 class="fullname bottom top" ng-bind="user.username">{% trans 'Name' %}</h1>
-                                    <h2 class="job-title top"></h2>
-                                    <modalmarkdowneditor title="{% trans 'Biography' %}" on-save="saveUser(user)" content="user.biography"></modalmarkdowneditor>
-                                </div>
+
                             </div>
                             <!-- END INSTRUCTOR -->
                         {% else %}
@@ -272,11 +267,7 @@ window.userId = {{ user.pk }};
 
                                     </div>
                                     {% endverbatim %}
-                                    <div class="col-sm-12">
-                                        <h1 class="fullname bottom top">{{ user.first_name }} {{ user.last_name }}</h1>
-                                        <h2 class="job-title top">{{ user.get_job_display }}</h2>
-                                        <p>{{ user.biography|timtec_markdown }}</p>
-                                    </div>
+
                                 </div>
 
 
