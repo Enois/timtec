@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin as django_admin
 django_admin.autodiscover()
-from portfolio.views  import AdminView
 from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
@@ -25,7 +24,7 @@ from forum.views import CourseForumView, QuestionView, QuestionCreateView, Quest
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats, CourseStatsByLessonViewSet
-from portfolio.views import PortfolioViewSet, CommentViewSet, PortfolioView, PortfolioThumbViewSet ,PortfoliosView
+from portfolio.views import PortfolioViewSet, PortfolioCreateView, CommentViewSet, PortfolioEditView, PortfolioThumbViewSet ,PortfoliosView ,PortfolioView
 from rest_framework import routers
 from django_markdown import flatpages
 
@@ -85,9 +84,10 @@ urlpatterns = patterns(
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)/$', QuestionView.as_view(), name='forum_question'),
     url(r'^forum/question/add/(?P<course_slug>[-a-zA-Z0-9_]+)/$', QuestionCreateView.as_view(), name='forum_question_create'),
 
-    #Portfolio
-    url(r'^portfolio/(?P<username>[\w.+-]+)?/new/$', AdminView.as_view(template_name="portfolio.html")),
-    url(r'^portfolio/(?P<username>[\w.+-]+)?/$', PortfolioView.as_view(template_name="portfolio.html")),
+    #Portfolio url
+    url(r'^portfolio/(?P<username>[\w.+-]+)?/new/$', PortfolioCreateView.as_view(), name='portfolio_new'),
+    url(r'^portfolio/(?P<username>[\w.+-]+)?/(?P<pk>[1-9][0-9]*)/$', PortfolioEditView.as_view(), name='portfolio_edit'),
+    url(r'^portfolios/portfolio/(?P<username>[\w.+-]+)?/(?P<pk>[1-9][0-9]*)/$', PortfolioView.as_view(), name='portfolio_view'),
     url(r'^portfolios', PortfoliosView.as_view(), name='portfolios'),
 
     # Course Material

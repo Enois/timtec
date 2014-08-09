@@ -5,23 +5,23 @@
 
      var app = angular.module('portfolio.services', []);
 
-     app.factory('Portfolio', ['$resource', 'getRestOptions', function($resource, getRestOptions) {
+
+      app.factory('Portfolio', ['$resource', 'getRestOptions', function($resource, getRestOptions) {
 
         var Portfolio = $resource('/api/portfolio/:id', {'id':'@id'});
-
         Portfolio.prototype.isDraft = function() { return this.status === 'draft'; };
         Portfolio.prototype.isPublished = function() { return this.status === 'published'; };
 
-        Portfolio.prototype.hasVideo = function(){
-            return this.video && this.video.youtube_id &&
-                   this.video.youtube_id.length > 0;
-        };
         Portfolio.prototype.saveOrUpdate = function() {
             if(!this.name) this.name = 'Sem título';
             if(!this.status) this.status = 'draft';
-            return this.id > 0 ? this.$update() : this.$save();
+            return this.$save();
         };
-        getRestOptions('/api/portfolio').success(function(data) {
+         Portfolio.prototype.hasVideo = function(){
+            return this.video && this.video.youtube_id &&
+                   this.video.youtube_id.length > 0;
+        };
+          getRestOptions('/api/portfolio').success(function(data) {
             Portfolio.fields = angular.copy(data.actions.POST);
         });
         return Portfolio;
@@ -66,18 +66,6 @@
 
 
 
-      app.factory('getRestOptions', ['$http', function($http){
-        return function(url){
-            return $http({
-                method:'POST',
-                url: url,
-                data:'_method=OPTIONS',
-                headers:{'Content-Type':'application/x-www-form-urlencoded'}
-            });
-        };
-    }]);
-
-
      /**
      * Provide an object that wraps a FormData and a XMLHttpRequest
      * to upload files. Returns a promise with request info.
@@ -118,6 +106,21 @@
 
                 return deferred.promise;
             };
+        };
+    }]);
+
+     /**
+     * Give a function that send _method=OPTIONS to django rest_framework
+     * URL informed and return a promise with result.
+     */
+    app.factory('getRestOptions', ['$http', function($http){
+        return function(url){
+            return $http({
+                method:'POST',
+                url: url,
+                data:'_method=OPTIONS',
+                headers:{'Content-Type':'application/x-www-form-urlencoded'}
+            });
         };
     }]);
 

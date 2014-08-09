@@ -6,9 +6,14 @@
         'portfolio.services',
         'directive.markdowneditor',
         'directive.codemirror',
+        'directive.alertPopup',
+        'directive.contenteditable',
+        'directive.fixedBar',
+        'directive.sortable',
         'ngRoute',
         'ngResource',
         'youtube',
         'django'
     ]);
 })(window.angular);
+

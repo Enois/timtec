@@ -15,8 +15,6 @@
             $scope.portfolio = new Portfolio();
             $scope.user = new User();
             window.s = $scope;
-        //    console.log(window.userId);
-        //    $scope.portfolio.user = window.userId;
 
             var player;
             $scope.playerReady = false;
@@ -33,6 +31,7 @@
                 });
             });
 
+
             function showFieldErrors(response) {
                 $scope.errors = response.data;
                 var messages = [];
@@ -45,6 +44,7 @@
                 }
                 $scope.alert.error('Encontramos alguns erros!', messages, true);
             }
+
 
             $scope.saveThumb = function() {
                 if(! $scope.thumbfile) {
@@ -75,6 +75,7 @@
                     })['catch'](showFieldErrors);
             };
 
+
             $scope.publishPortfolio = function() {
                 $scope.portfolio.status = 'published';
                 $scope.savePortfolio();
@@ -90,37 +91,65 @@
             };
 
 
+            var match = document.location.href.match(/portfolio\/([\w.+-]+)\/(new|\d+)/);
 
-               // vv como faz isso de uma formula angular ?
-            var match = document.location.href.match(/portfolio\/(student)\/(new|\d+)/);
-             console.log(match[1]);
+  if( match ) {
+      console.log(window.userId)
+      if('new' === match[2]){
 
-            if( match ) {
-                $scope.isNewPortfolio = ('new' === match[2]);
-                $scope.user.$get({id: 2})
-                    .then(function(user){
-                        $scope.portfolio.user=user.id;
+          $scope.portfolio.user = window.userId
+      }
 
+      else{
+                $scope.portfolio.$get({id: match[2]})
 
-
-                        return $scope.user.promise;
-                    });
-                Portfolio.query({id: match[2]}).$promise
                     .then(function(portfolio){
-                  $scope.portfolio=portfolio;
-                  document.title = 'Portfolio: {0}'.format(portfolio.name);
-                  $scope.addThumb = !portfolio.thumbnail_url;
-                        if(portfolio.video){
+                        if(portfolio.video) {
                             youtubePlayerApi.videoId = portfolio.video.youtube_id;
                         }
 
-                })  ['catch'](function(resp){
+                        document.title = 'Portfolio: {0}'.format(portfolio.name);
+                        $scope.addThumb = !portfolio.thumbnail_url;
+                        // course_material and forum urls
+                        $scope.user.$get({id: portfolio.user.id});
+                        return $scope.user.promise;
+                    })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
                     })['finally'](function(){
                         $scope.statusList = Portfolio.fields.status.choices;
                     });
-
-            }
+            }}
+            // ^^ como faz isso de uma formula angular ?
+//console.log(match[1]);
+//            if( match ) {
+//                $scope.isNewPortfolio = ('new' === match[2]);
+//                $scope.user.$get({id:window.userId})
+//                    .then(function(user){
+//                        $scope.portfolio.user=user.id;
+//                        return $scope.user.promise;
+//                    });
+//                Portfolio.query({user__id:$scope.user.id }).$promise
+//                    .then(function(portfolios){
+//                         $scope.portfolios = portfolios;
+//                        portfolios.forEach(function(portfolio){
+//                        if(portfolio.id==match[2]) {
+//                          $scope.portfolio=portfolio;
+//                          document.title = 'Portfolio: {0}'.format(portfolio.name);
+//                           $scope.addThumb = !portfolio.thumbnail_url;
+//                        if(portfolio.video){
+//                            youtubePlayerApi.videoId = portfolio.video.youtube_id;
+//                        }}
+//                        });
+//                        if($scope.isNewPortfolio) {
+//                            $scope.portfolio.user = userId;
+//
+//                        }
+//                     })['catch'](function(resp){
+//                        $scope.alert.error(httpErrors[resp.status.toString()]);
+//                    })['finally'](function(){
+//                        $scope.statusList = Portfolio.fields.status.choices;
+//                    });
+//            }
 
 
 

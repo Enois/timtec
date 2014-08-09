@@ -10,14 +10,14 @@
 {% endblock %}
 
 {% block content %}
-
 <script type="text/javascript">
 window.userId = {{ user.pk }};
 </script>
+<!-- COURSE -->
+<!-- COURSE -->
+<div id="course" ng-app="portfolio" ng-controller="PortfolioEditController">
 
-<div id="course"  ng-app="portfolio" ng-controller="PortfolioEditController">
-
-    {% if in_student and portfolio_user_id == user.pk %}
+    {% if in_student %}
         <!-- ACTIONS -->
         <div class="actions" fixed-bar>
             <div class="container">
@@ -44,18 +44,10 @@ window.userId = {{ user.pk }};
             <!-- ROW -->
             <div class="row">
                 <div class="col-md-9 col-sm-8 col-xs-12">
-                {% if in_student and portfolio_user_id == user.pk %}
+                {% if in_student %}
                     <h1>
-                        <span  ng-model="portfolio.name" placeholder="{% trans 'Portfolio name' %}" contenteditable="true"></span></h1>
-
-
-                    <h1><span ng-model="portfolio.name"
-                              placeholder="Portfolio name" contenteditable="true"></span></h1>
-
-                    <p class="description editable">
-                        <span ng-model="portfolio.description" placeholder="{% trans 'Portfolio description' %}"
-                              contenteditable="true"></span></p>
-
+                        <span  ng-model="portfolio.name"
+                              placeholder="{% trans 'Portfolio name' %}" contenteditable="true"></span></h1>
 
                 {% else %}
                     <h1>{{ portfolio.name }}</h1>
@@ -75,7 +67,7 @@ window.userId = {{ user.pk }};
             <!-- COL-LG-9 -->
             <div class="col-md-9 col-sm-8 col-xs-12" ng-init="mediaSection='thumbnail'">
 
-                {% if in_student and portfolio_user_id == user.pk %}
+                {% if in_student %}
                     <!-- ADD CONTENT -->
                     <div class="add-content row">
                         <div class="col-lg-6">
@@ -182,7 +174,8 @@ window.userId = {{ user.pk }};
                     <!--  END COURSE-VIDEO  -->
                 {% else %}
                     <!-- COURSE-VIDEO -->
-                    <!-- THUMBNAIL VIEW -->
+
+                      <!-- THUMBNAIL VIEW -->
                 {% if portfolio.video == None  %}
                     <section class="thumbnail" id="thumbnail-video" >
                        <div class="row">
@@ -222,7 +215,7 @@ window.userId = {{ user.pk }};
                                 <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans "Description" %}</h3>
                             </div>
 
-                            {% if in_student and portfolio_user_id == user.pk %}
+                            {% if in_student %}
                                 <modalmarkdowneditor tabindex="6" on-save="savePortfolio()" title="{% trans 'Description' %}" content="portfolio.description"></modalmarkdowneditor>
                             {% else %}
                                 <div class="content">{{ portfolio.description|timtec_markdown }}</div>
@@ -239,7 +232,7 @@ window.userId = {{ user.pk }};
                     <!-- COURSE-INSTRUCTORS -->
                     <section class="instructors">
 
-                        {% if in_student and portfolio_user_id == user.pk %}
+                        {% if in_student %}
                             <!-- INSTRUCTOR -->
                             <div id="" class="instructor row">
                                 <div class="instructor-photo col-sm-12">
@@ -282,7 +275,8 @@ window.userId = {{ user.pk }};
         </div>
         <!-- END ROW -->
     </section>
-      {% if in_student and portfolio_user_id == user.pk %}
+    <!-- END COURSE CONTENT -->
+ {% if in_student %}
         <!-- ALERT -->
         <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
             <div class="alert fade in" ng-class="'alert-' + alert.type">
@@ -302,7 +296,8 @@ window.userId = {{ user.pk }};
         </div>
         <!-- ALERT -->
     {% endif %}
-    <!-- END COURSE CONTENT -->
 </div>
 <!-- END COURSE-CONTENT -->
+
+
 {% endblock %}

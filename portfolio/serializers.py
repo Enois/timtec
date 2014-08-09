@@ -4,6 +4,7 @@ from .models import  Comment,Portfolio
 from rest_framework import serializers
 
 
+
 class VideoSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -15,6 +16,7 @@ class PortfolioSerializer(serializers.ModelSerializer):
     video = VideoSerializer(required=False)
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
     tags = serializers.Field(source='tags')
+
 
     class Meta:
         model = Portfolio
