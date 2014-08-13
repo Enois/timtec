@@ -10,12 +10,12 @@
 {% endblock %}
 
 {% block content %}
+
 <script type="text/javascript">
 window.userId = {{ user.pk }};
 </script>
-<!-- COURSE -->
-<!-- COURSE -->
-<div id="course" ng-app="portfolio" ng-controller="PortfolioEditController">
+
+<div id="portfolio-user"  ng-app="portfolio" ng-controller="PortfolioEditController">
 
     {% if in_student %}
         <!-- ACTIONS -->
@@ -43,12 +43,10 @@ window.userId = {{ user.pk }};
         <div class="page-header">
             <!-- ROW -->
             <div class="row">
-                <div class="col-md-9 col-sm-8 col-xs-12">
+                <div class="col-md-6 col-sm-8 col-xs-12">
                 {% if in_student %}
                     <h1>
-                        <span  ng-model="portfolio.name"
-                              placeholder="{% trans 'Portfolio name' %}" contenteditable="true"></span></h1>
-
+                        <span  ng-model="portfolio.name" placeholder="{% trans 'Portfolio name' %}" contenteditable="true"></span></h1>
                 {% else %}
                     <h1>{{ portfolio.name }}</h1>
                 {% endif %}
@@ -61,11 +59,11 @@ window.userId = {{ user.pk }};
     <!-- END HEADER -->
 
     <!-- COURSE-CONTENT -->
-    <section id="course-content" class="container">
+    <section id="portfolio-content" class="container">
         <!-- ROW -->
         <div class="row">
             <!-- COL-LG-9 -->
-            <div class="col-md-9 col-sm-8 col-xs-12" ng-init="mediaSection='thumbnail'">
+            <div class="col-md-6" ng-init="mediaSection='thumbnail'">
 
                 {% if in_student %}
                     <!-- ADD CONTENT -->
@@ -174,8 +172,7 @@ window.userId = {{ user.pk }};
                     <!--  END COURSE-VIDEO  -->
                 {% else %}
                     <!-- COURSE-VIDEO -->
-
-                      <!-- THUMBNAIL VIEW -->
+                    <!-- THUMBNAIL VIEW -->
                 {% if portfolio.video == None  %}
                     <section class="thumbnail" id="thumbnail-video" >
                        <div class="row">
@@ -205,78 +202,27 @@ window.userId = {{ user.pk }};
                     {% endif %}
                     <!-- END COURSE-VIDEO -->
                 {% endif %}
-
-                <!-- COURSE-INFO -->
-                <section class="course-info">
-                    <!-- ROW -->
-                    <div class="row">
-                         <div class="application col-sm-6 col-xs-12">
-                            <div class="page-header-double">
-                                <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans "Description" %}</h3>
-                            </div>
-
-                            {% if in_student %}
-                                <modalmarkdowneditor tabindex="6" on-save="savePortfolio()" title="{% trans 'Description' %}" content="portfolio.description"></modalmarkdowneditor>
-                            {% else %}
-                                <div class="content">{{ portfolio.description|timtec_markdown }}</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <!-- END ROW -->
-                </section>
-                <!-- END COURSE-INFO -->
             </div>
-            <div class="col-md-3 col-sm-4 hidden-xs">
-                <!-- COURSE-SUMMARY -->
-                <section class="summary">
-                    <!-- COURSE-INSTRUCTORS -->
-                    <section class="instructors">
+            <!--change -->
+           <div class="col-sm-6 col-md-3 portfolio-description">
+            <h3>Sobre esse projeto</h3>
+      {% if in_student %}
+            <modalmarkdowneditor tabindex="6" on-save="savePortfolio()" title="{% trans 'Description' %}" content="portfolio.description"></modalmarkdowneditor>
+               {% else %}
+<p>{{portfolio.description|timtec_markdown}}</p>
+{% endif %}
+        </div>
 
-                        {% if in_student %}
-                            <!-- INSTRUCTOR -->
-                            <div id="" class="instructor row">
-                                <div class="instructor-photo col-sm-12">
-                                    {% verbatim %}
-                                    <img ng-src="{{ user.picture }}"
-                                         onerror="this.src='/static/img/avatar-default.png'"
-                                         class="img-circle">
-                                    {% endverbatim %}
-                                </div>
+            <!--change -->
 
-                            </div>
-                            <!-- END INSTRUCTOR -->
-                        {% else %}
+          <div class="col-sm-6 col-md-3 portfolio-user-detail">
 
-                            <div class="page-header-double top">
-                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Created by" %}</h3>
-                            </div>
+        </div>
 
-
-                                <div class="instructor row">
-                                {% verbatim %}
-                                <strong>{{ portfolio.user.username }}</strong>
-
-                                    <div class="instructor-photo col-sm-12">
-                                        <img style="content:url({{ user.picture }})" class="img-circle">
-
-                                    </div>
-                                    {% endverbatim %}
-
-                                </div>
-
-
-                        {% endif %}
-
-                    </section>
-                    <!-- END COURSE-INSTRUCTORS -->
-                </section>
-                <!-- END COURSE-SUMMARY -->
-            </div>
         </div>
         <!-- END ROW -->
     </section>
-    <!-- END COURSE CONTENT -->
- {% if in_student %}
+      {% if in_student %}
         <!-- ALERT -->
         <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
             <div class="alert fade in" ng-class="'alert-' + alert.type">
@@ -296,8 +242,7 @@ window.userId = {{ user.pk }};
         </div>
         <!-- ALERT -->
     {% endif %}
+    <!-- END COURSE CONTENT -->
 </div>
 <!-- END COURSE-CONTENT -->
-
-
 {% endblock %}

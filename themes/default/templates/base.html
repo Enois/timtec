@@ -76,7 +76,7 @@
         })();
     </script>
 </head>
-<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
+<body {% if in_admin or in_student %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
 
     {% include 'header.html' %}
 

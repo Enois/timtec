@@ -46,9 +46,10 @@ class PortfolioEditView(LoginRequiredMixin, UpdateView, views.GroupRequiredMixin
 
 
 class PortfolioViewSet(viewsets.ModelViewSet):
+
     model = Portfolio
     lookup_field = 'id'
-    filter_fields = ('user', 'home_published',)
+    filter_fields = ('user', 'home_published', 'status',)
     serializer_class = PortfolioSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -62,15 +63,18 @@ class PortfolioViewSet(viewsets.ModelViewSet):
         serializer = PortfolioSerializer(portfolio, request.DATA)
 
         if serializer.is_valid():
-            serializer.save()
-            return Response(status=200)
+           serializer.save()
+           return Response(status=200)
         else:
-            return Response(serializer.errors, status=400)
+           return Response(serializer.errors, status=400)
 
     def metadata(self, request):
         data = super(PortfolioViewSet, self).metadata(request)
         data.get('actions').get('POST').get('status').update({'choices': dict(Portfolio.STATES[1:])})
         return data
+
+
+
 
 
 class PortfolioThumbViewSet(viewsets.ModelViewSet):
@@ -125,5 +129,12 @@ class PortfoliosView(ListView):
     template_name = "portfolios.html"
 
     def get_queryset(self):
-        return Portfolio.objects.all().filter(home_published=True)
+        return Portfolio.objects.all().filter(user=self.request.user)
 
+
+class PortfoliosTestView(ListView):
+    context_object_name = 'portfoliohome'
+    template_name = "portfoliohome.html"
+
+    def get_queryset(self):
+        return Portfolio.objects.all().filter(home_published=True)

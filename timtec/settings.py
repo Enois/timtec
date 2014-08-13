@@ -143,6 +143,7 @@ PIPELINE_CSS = {
             'codemirror/addon/hint/show-hint.css',
             'codemirror/theme/monokai.css',
             'css/codemirrorconf.css',
+            'ng-tags-input/ng-tags-input.css',
             'intro.js/introjs.css',
             'intro.js/themes/introjs-nassim.css',
         ),
@@ -178,6 +179,7 @@ PIPELINE_JS = {
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
             'angular-gettext/dist/angular-gettext.js',
+            'ng-tags-input/ng-tags-input.js',
             'intro.js/intro.js',
             'js/consolelogfallback.js',
             'js/django.js',
@@ -188,6 +190,7 @@ PIPELINE_JS = {
             'js/layout.js',
             'js/jquery-thumbnail.js',
             'js/jquery-scrolltop.js',
+
         ),
         'output_filename': 'js/all.js',
     },
@@ -327,6 +330,15 @@ PIPELINE_JS = {
             'js/directives/sortable.js',
         ),
         'output_filename': 'js/portfolio.js',
+    },
+    'portfolios': {
+        'source_filenames': (
+            'js/portfolios/app.js',
+            'js/portfolios/controllers.js',
+            'js/portfolios/services.js',
+            'js/portfolios/filters.js',
+        ),
+        'output_filename': 'js/portfolios.js',
     },
 }
 

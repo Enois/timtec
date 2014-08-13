@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load compressed %}
+{% block js %}
+{{ block.super }}
+{% compressed_js 'portfolios' %}
+{% endblock %}
+
+{% block content %}
+<div id="portfolio" ng-app="portfolios" ng-controller="PortfoliosController" ng-init="showData()" >
+            <div class="container">
+                <div class="header-portfolios">
+                       <h1>PORTFOLIO</h1>
+                       <h2>Get the lastest insights from Desk</h2>
+                    </div>
+
+                <section ng-repeat="portfolio in dataportfolios | pagination: curPage * pageSize | limitTo: pageSize">
+                <div class="col-sm-6 col-md-3">
+                     <div class="thumb-portfolio">
+
+                           {% verbatim %}
+	                      <img  ng-src="{{portfolio.thumbnail_url}}" title="" alt=""/>
+
+                       <div>
+                           <div>
+                              <h2>{{ portfolio.name }}</h2>
+                              <p>{{ portfolio.description }}</p>
+                           </div>
+                       </div>
+                     </div>
+                     <div class="user-data">
+                            <a href=""><i class="fa fa-user fa-lg"></i>{{portfolio.user}} {{portfolio.user}}</a>
+                     {% endverbatim %}
+                     </div>
+</div>
+
+
+
+
+                 </section>
+            </div>
+             <div class="container-btn-section2">
+                 <div class="pagination pagination-centered" ng-show="dataportfolios.length">
+         <ul class="pagination-controle pagination">
+           <li>
+              <button type="button" class="btn btn-primary" ng-disabled="curPage == 0" ng-click="curPage=curPage-1"> &lt; PREV</button>
+           </li>
+           <li>
+               {% verbatim %}
+              <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+              {% endverbatim %}
+           </li>
+           <li>
+              <button type="button" class="btn btn-primary" ng-disabled="curPage >= dataportfolios.length/pageSize - 1" ng-click="curPage = curPage+1">NEXT &gt;</button>
+           </li>
+         </ul>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+

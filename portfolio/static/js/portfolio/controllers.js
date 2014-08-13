@@ -12,9 +12,11 @@
                 '403': 'Você não tem permissão para ver conteúdo nesta página.',
                 '404': 'Este curso não existe!'
             };
+
             $scope.portfolio = new Portfolio();
             $scope.user = new User();
             window.s = $scope;
+
 
             var player;
             $scope.playerReady = false;
@@ -66,13 +68,14 @@
                 if(!$scope.portfolio.hasVideo()){
                     delete $scope.portfolio.video;
                 }
+                $scope.portfolio.description='Please insert a detailed description';
                 $scope.portfolio.saveOrUpdate()
                     .then(function(){
                         return $scope.saveThumb();
                     })
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso!');
-                    })['catch'](showFieldErrors);
+                        })['catch'](showFieldErrors);
             };
 
 
@@ -82,13 +85,14 @@
             };
 
             $scope.deletePortfolio = function() {
-                if(!confirm('Tem certeza que deseja remover este curso?')) return;
+                if(!confirm('Tem certeza que deseja remover este portfolio?')) return;
 
                 $scope.portfolio.$delete()
                     .then(function(){
                         document.location.href = '/';
                     });
             };
+
 
 
             var match = document.location.href.match(/portfolio\/([\w.+-]+)\/(new|\d+)/);
@@ -107,49 +111,19 @@
                         if(portfolio.video) {
                             youtubePlayerApi.videoId = portfolio.video.youtube_id;
                         }
-
                         document.title = 'Portfolio: {0}'.format(portfolio.name);
+                        $scope.portfolios=Portfolio.query({status: 'published',user:portfolio.user});
                         $scope.addThumb = !portfolio.thumbnail_url;
                         // course_material and forum urls
-                        $scope.user.$get({id: portfolio.user.id});
+                        $scope.user.$get({id: portfolio.user});
                         return $scope.user.promise;
+
                     })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
                     })['finally'](function(){
                         $scope.statusList = Portfolio.fields.status.choices;
                     });
             }}
-            // ^^ como faz isso de uma formula angular ?
-//console.log(match[1]);
-//            if( match ) {
-//                $scope.isNewPortfolio = ('new' === match[2]);
-//                $scope.user.$get({id:window.userId})
-//                    .then(function(user){
-//                        $scope.portfolio.user=user.id;
-//                        return $scope.user.promise;
-//                    });
-//                Portfolio.query({user__id:$scope.user.id }).$promise
-//                    .then(function(portfolios){
-//                         $scope.portfolios = portfolios;
-//                        portfolios.forEach(function(portfolio){
-//                        if(portfolio.id==match[2]) {
-//                          $scope.portfolio=portfolio;
-//                          document.title = 'Portfolio: {0}'.format(portfolio.name);
-//                           $scope.addThumb = !portfolio.thumbnail_url;
-//                        if(portfolio.video){
-//                            youtubePlayerApi.videoId = portfolio.video.youtube_id;
-//                        }}
-//                        });
-//                        if($scope.isNewPortfolio) {
-//                            $scope.portfolio.user = userId;
-//
-//                        }
-//                     })['catch'](function(resp){
-//                        $scope.alert.error(httpErrors[resp.status.toString()]);
-//                    })['finally'](function(){
-//                        $scope.statusList = Portfolio.fields.status.choices;
-//                    });
-//            }
 
 
 

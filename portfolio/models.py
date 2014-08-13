@@ -4,7 +4,6 @@ from accounts.models import TimtecUser
 from core.models import Video
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
-from django.contrib.staticfiles.storage import staticfiles_storage
 
 
 class Portfolio(models.Model):

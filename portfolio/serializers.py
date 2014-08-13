@@ -1,8 +1,7 @@
 __author__ = 'dali'
 from core.models import Video
-from .models import  Comment,Portfolio
+from .models import Comment, Portfolio
 from rest_framework import serializers
-
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -13,14 +12,14 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class PortfolioSerializer(serializers.ModelSerializer):
+
     video = VideoSerializer(required=False)
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
     tags = serializers.Field(source='tags')
 
-
     class Meta:
         model = Portfolio
-        fields = ("id", "user", "name", "description", "timestamp", "video", "description", "thumbnail_url", "tags", "status",)
+        fields = ("id", "user", "name", "description", "timestamp", "video", "description", "thumbnail_url", "tags", "status","home_published",)
 
 
 class PortfolioThumbSerializer(serializers.ModelSerializer):

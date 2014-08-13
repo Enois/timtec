@@ -13,7 +13,7 @@
         Portfolio.prototype.isPublished = function() { return this.status === 'published'; };
 
         Portfolio.prototype.saveOrUpdate = function() {
-            if(!this.name) this.name = 'Sem título';
+            if(!this.name) this.name = this.user+'Sem título';
             if(!this.status) this.status = 'draft';
             return this.$save();
         };

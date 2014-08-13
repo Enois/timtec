@@ -24,7 +24,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseStudentSerializer,HomePageSerializer)
 
 from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage, CourseStudent, HomePage
-
+from portfolio.models import Portfolio
 from .forms import ContactForm, AcceptTermsForm
 
 
@@ -33,7 +33,8 @@ class HomeView(ListView):
     template_name = "home.html"
 
     def get_queryset(self):
-        return Course.objects.all()
+        return Portfolio.objects.all().filter(home_published=True)
+
 
 if settings.TWITTER_USER != '':
     from twitter import Twitter, OAuth

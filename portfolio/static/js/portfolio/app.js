@@ -13,7 +13,8 @@
         'ngRoute',
         'ngResource',
         'youtube',
-        'django'
+        'django',
+        'ngTagsInput'
     ]);
 })(window.angular);
 
