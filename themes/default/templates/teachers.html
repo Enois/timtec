@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+  <!--  PORTFOLIO   -->
+        <div id="portfolio">
+            <div class="container">
+                <div class="header-portfolios">
+
+                       <h1>Teachers</h1>
+
+                </div>
+                <div class="row">
+                    {% for teacher in teachers %}
+
+    <!-- Dark Profile Start -->
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+
+          <div class="boxed profile dark">
+            <div class="inner">
+
+              <!-- Profile Title Start -->
+              <div class="title">
+                <a class="share-profile" target="_blank" href="/profile/{{ teacher.username }}">Ver mais</a>
+              </div>
+              <!-- Profile Title End -->
+
+              <div class="row profile-data">
+                <!-- Left Side Start -->
+                <div class="col-lg-5 col-md-5 col-sm-3 col-xs-4 text-center">
+
+                  <!-- Profile Avatar Start -->
+                  <div class="profile-avatar">
+                    <img alt="{{ teacher.username }}" src="{{ teacher.get_picture_url }}">
+                  </div>
+                  <!-- Profile Avatar End -->
+
+                  <!-- Send Message Start -->
+                  <div class="send-msg">
+                    <button type="button" class="btn btn-sm btn-default" target="_blank" onClick="window.location.href='https://mail.google.com/mail/?view=cm&fs=1&to={{ teacher.email }}';">Send Message</button>
+                  </div>
+                  <!-- Send Message End -->
+
+                </div>
+                <!-- Left Side End -->
+
+                <!-- Right Side Start -->
+                <div class="col-lg-7 col-md-7 col-sm-9 col-xs-8">
+
+                  <h3>{{ teacher.username }}</h3>
+                  <ul class="icon-list list-unstyled">
+                    <li><i class="fa fa-envelope"></i>{{ teacher.email }}</li>
+                    <li><i class="fa fa-building-o"></i>Énois | Inteligência Jovem</li>
+                    <li><i class="fa fa-map-marker"></i>{{ teacher.city }}</li>
+                    <li><i class="fa fa-suitcase"></i>{{ teacher.occupation }}</li>
+                    <li><i class="fa fa-link"></i> <a href="#">{{ teacher.site }}</a></li>
+                  </ul>
+
+                </div>
+                <!-- Right Side End -->
+              </div>
+
+              <!-- Profile Stats Start -->
+              <div class="row">
+                <ul class="profile-stats">
+                  <li class="courses col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                    <h3>Joined Us</h3>
+                      <p>{{ teacher.date_joined }}</p>
+                  </li>
+                </ul>
+              </div>
+              <!-- Profile Stats End -->
+
+              <!-- Profile About Me Start -->
+              <div class="row about-me">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <h3>Biography</h3>
+                  <p>{{ teacher.biography }}</p>
+                </div>
+              </div>
+              <!-- Profile About Me End -->
+
+              <!-- Profile Footer Start -->
+              <div class="footer">
+                <div class="col-lg-5 col-md-12 col-sm-6 col-xs-6">
+                  <h4>Follow this teacher at</h4>
+                </div>
+                <div class="col-lg-7 col-md-12 col-sm-6 col-xs-6">
+                  <ul class="profile-socials">
+                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="pinterest" href="#"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Profile Footer End -->
+
+            </div>
+          </div>
+
+        </div>
+    <!-- Dark Profile End -->
+                      {% endfor %}
+                 </div>
+            </div>
+             <div class="container-btn-section2">
+
+                       </div>
+
+        </div>
+
+
+       <!-- END Portfolio  -->
+
+
+
+
+
+
+{% endblock %}

@@ -7,6 +7,8 @@ from .serializers import PortfolioSerializer, CommentSerializer, PortfolioThumbS
 from braces import views
 from braces.views import LoginRequiredMixin
 from django.views.generic import UpdateView, CreateView
+from django.core.files.images import get_image_dimensions
+from django import forms
 
 
 class PortfolioCreateView(CreateView, LoginRequiredMixin, views.GroupRequiredMixin,):
@@ -76,7 +78,6 @@ class PortfolioViewSet(viewsets.ModelViewSet):
 
 
 
-
 class PortfolioThumbViewSet(viewsets.ModelViewSet):
     model = Portfolio
     lookup_field = 'id'
@@ -86,7 +87,6 @@ class PortfolioThumbViewSet(viewsets.ModelViewSet):
     def post(self, request, **kwargs):
         portfolio = self.get_object()
         serializer = PortfolioThumbSerializer(portfolio, request.FILES)
-
         if serializer.is_valid():
             serializer.save()
             return Response(status=200)

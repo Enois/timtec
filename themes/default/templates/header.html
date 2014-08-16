@@ -78,7 +78,9 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-user">
                         <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
+                         {% ifusergroup students %}
                         <li><a href="/{{ user.username }}/portfolios">{% trans "My Portfolio" %}</a> </li>
+                         {% endifusergroup %}
                         <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
                         <li class='divider'></li>
                         <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>

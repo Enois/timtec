@@ -52,8 +52,8 @@
                 if(! $scope.thumbfile) {
                     return;
                 }
-
                 if ($scope.portfolio.id) {
+                    console.log($scope.thumbfile.size );
                     var fu = new FormUpload();
                     fu.addField('thumbnail', $scope.thumbfile);
                     // return a new promise that file will be uploaded
@@ -62,6 +62,8 @@
                             $scope.alert.success('A imagem atualizada.');
                         });
                 }
+
+
             };
 
             $scope.savePortfolio = function() {

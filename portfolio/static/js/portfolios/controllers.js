@@ -6,7 +6,7 @@ app.controller('PortfoliosController',
     ['$scope', 'Portfolio','User',
     function ($scope,Portfolio,User) {
 
-         $scope.datalist=Portfolio.query({home_published: 'True'});
+         $scope.datalist=Portfolio.query({status: 'published'});
 
 
 
@@ -14,7 +14,7 @@ app.controller('PortfoliosController',
 
 
             $scope.curPage = 0;
-            $scope.pageSize = 4;
+            $scope.pageSize = 8;
             $scope.dataportfolios=  $scope.datalist ;
 
 

@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin as django_admin
 django_admin.autodiscover()
 from django.views.generic import TemplateView
-from accounts.views import CustomLoginView, ProfileEditView, ProfileView
+from accounts.views import CustomLoginView, ProfileEditView, ProfileView, TeachersView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
 
 from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
@@ -90,6 +90,9 @@ urlpatterns = patterns(
     url(r'^portfolios/portfolio/(?P<username>[\w.+-]+)?/(?P<pk>[1-9][0-9]*)/$', PortfolioView.as_view(), name='portfolio_view'),
     url(r'^(?P<username>[\w.+-]+)?/portfolios', PortfoliosView.as_view(), name='portfolios'),
     url(r'^galleryportfolio', PortfoliosTestView.as_view(), name='portfoliohome'),
+
+    #Teachers url
+    url(r'^teachers', TeachersView.as_view(), name='Teachers_view'),
 
 
     # Course Material

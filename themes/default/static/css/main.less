@@ -1078,7 +1078,7 @@ a, a:hover, a:active {
 
       &:before {
         content:'';
-        height:100%;
+        height:40%;
         .vertical-align(middle);
       }
 
@@ -1606,7 +1606,7 @@ a, a:hover, a:active {
     .top(25px);
   }
 }
-#course,#portfolio-user
+#course
 .thumbnail {
   img {
     filter: url('../js/filters.svg#grayscale'); /* Firefox 3.5+ */
@@ -1618,6 +1618,7 @@ a, a:hover, a:active {
 	-webkit-filter: grayscale(0);
   }
 }
+
 #course.course-stats {
   .students, .lessons {
     margin: 20px 0 0;
@@ -3601,4 +3602,369 @@ margin-top: -10%;
 /* END PURE CAPTION CSS */
 #portfolio .btn.btn-primary{
   background-color:  #FF936F;;
+}
+
+
+#portfolio .portfolio-tool .btn{
+    margin-left: 10px;
+    width: 45%;
+}
+
+
+/*Teachers page*/
+
+
+////////////////////////////////////////////////////////////
+.boxed {
+    margin-bottom: 20px;
+}
+.boxed .inner {
+    background-color: #ffffff;
+   border-radius: 5px;
+    box-shadow: 10px 10px 0 #dbdfe0;
+    color: #7f95a9;
+    overflow: hidden;
+    padding: 12px 20px;
+}
+.boxed .inner:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+.boxed .inner input {
+    width: 100%;
+}
+.boxed .inner.no-radius {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.boxed .inner h1, .boxed .inner h2, .boxed .inner h3, .boxed .inner h4, .boxed .inner h5, .boxed .inner h6 {
+    margin: 0;
+    padding: 0;
+}
+.boxed .inner h2.divider, .boxed .inner h3.divider {
+    margin: 10px 0;
+}
+.boxed.no-padding .inner {
+    padding: 0;
+}
+.boxed .title-bar {
+    background-color: #fafafa;
+    border-bottom: 1px solid #eff2f7;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+    padding: 10px;
+}
+.boxed .title-bar.white {
+    background-color: #ffffff;
+}
+.boxed .title-bar.gray {
+    background-color: #fafafa;
+}
+.boxed .title-bar.white h4 {
+    color: #b7c9cd;
+}
+.boxed .title-bar h4 {
+    color: #b7c9cd;
+    float: left;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 20px;
+    margin: 0;
+    text-transform: uppercase;
+    width: 70%;
+}
+.boxed .title-bar .actions {
+    float: right;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    width: 25%;
+}
+.boxed .title-bar .actions li {
+    display: inline-block;
+    padding-right: 8px;
+}
+.boxed .title-bar .actions li a i {
+    color: #a9abab;
+}
+.boxed .title-bar .actions li a {
+    font-size: 14px;
+}
+.boxed .title-bar .actions:after {
+    clear: both;
+    content: "";
+    display: inline-block;
+}
+.boxed.calendar .inner {
+    border-top-right-radius: 0 !important;
+}
+.profile .title {
+    border-bottom: 1px solid #ecf0f1;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    vertical-align: middle;
+}
+.profile .title:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+.profile .title h3 {
+    color: #7b8b9d;
+    display: inline-block;
+    vertical-align: middle;
+}
+.profile .title .share-profile {
+    color: #7b8b9d;
+    display: inline-block;
+    float: right;
+    font-size: 13px;
+    line-height: 26px;
+    vertical-align: middle;
+}
+.profile .title .share-profile:after {
+    color: #5ecad4;
+    content: "";
+    font-family: 'FontAwesome';
+    font-size: 14px;
+    padding-left: 8px;
+}
+.profile h3 {
+    padding-bottom: 10px !important;
+}
+.profile .profile-data .profile-avatar {
+    border-radius: 50%;
+    display: inline-block;
+    height: 130px;
+    overflow: hidden;
+    width: 130px;
+}
+.profile .profile-data .send-msg {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+.profile .profile-data .send-msg .btn {
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 0 !important;
+}
+.profile .icon-list {
+    margin-left: 0;
+    margin-top: 8px;
+    padding: 0;
+}
+.profile .icon-list li {
+    color: #7b8b9d;
+    font-size: 13px;
+    padding-bottom: 7px;
+}
+.profile .icon-list li i {
+    color: #5ecad4;
+    min-width: 25px;
+    text-align: center;
+}
+.profile .icon-list li a {
+    color: #7f95a9;
+}
+.profile .icon-list li a:hover {
+    color: #5ecad4;
+}
+.profile .profile-stats {
+    margin: 10px -5px;
+    padding: 0;
+}
+.profile .profile-stats li {
+    display: inline-block;
+    padding: 25px 0;
+    text-align: center;
+    vertical-align: top;
+}
+.profile .profile-stats li p {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+.profile .profile-stats li h3 {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: normal;
+}
+.profile .profile-stats li.followers {
+    background-color: #0384ce;
+}
+.profile .profile-stats li.following {
+    background-color: #1abc9c;
+}
+.profile .profile-stats li.projects {
+    background-color: #a78ed7;
+}
+.profile .profile-stats li.courses {
+    background-color: #f86868;
+}
+.profile .about-me {
+    padding: 20px 0;
+}
+.profile .about-me p {
+    font-size: 13px;
+}
+.profile .about-me h3 {
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+.profile .footer {
+    border-top: 1px solid #ecf0f1;
+    margin-top: 0;
+    padding-top: 10px;
+    vertical-align: middle;
+}
+.profile .footer h4 {
+    line-height: 30px;
+}
+.profile .footer .profile-socials {
+    text-align: right;
+}
+.profile .footer .profile-socials li {
+    display: inline-block;
+    padding-left: 5px;
+}
+.profile .footer .profile-socials li a {
+    border-radius: 50%;
+    display: block;
+    height: 35px;
+    text-align: center;
+    width: 35px;
+}
+.profile .footer .profile-socials li a i {
+    color: #ffffff;
+    font-size: 19px;
+    line-height: 35px;
+}
+.profile .footer .profile-socials li a.facebook {
+    background-color: #335397;
+}
+.profile .footer .profile-socials li a.twitter {
+    background-color: #00c7f7;
+}
+.profile .footer .profile-socials li a.pinterest {
+    background-color: #cc2127;
+}
+.profile .footer .profile-socials li a.google-plus {
+    background-color: #dd4a38;
+}
+.profile .footer .profile-socials li a.linkedin {
+    background-color: #0073b2;
+}
+.profile .footer .profile-socials li a.dribbble {
+    background-color: #e04c86;
+}
+.profile.dark .inner {
+    background-color: #233242;
+}
+.profile.dark .title, .profile.dark .footer {
+    border-color: #364b61;
+}
+.profile.dark .profile-data h3 {
+    color: #ffffff;
+}
+.profile.dark .icon-list li {
+    color: #7b8b9d;
+}
+.profile.dark .profile-stats li {
+    background-color: #14202d !important;
+    border-right: 1px solid #233242;
+}
+.profile.dark .profile-stats li:last-child {
+    border-right: 0 none;
+}
+.profile.dark .send-msg .btn {
+    background-color: #36495e;
+    border-color: #2b3e52;
+    color: #8093a6;
+}
+.profile.dark .send-msg .btn:hover {
+    background-color: #14202d;
+    border-color: #2b3e52;
+}
+.profile.image .inner {
+    background: url("../_demo/images/profile-background-blurred.png") no-repeat scroll left top / cover transparent;
+}
+.profile.image .title, .profile.image .footer {
+    border-color: #ffffff;
+}
+.profile.image .title h3, .profile.image .title a, .profile.image .title a:after {
+    color: #ffffff;
+}
+.profile.image .profile-data h3 {
+    color: #ffffff;
+}
+.profile.image .icon-list li {
+    color: #ffffff;
+}
+.profile.image .icon-list li i {
+    color: #ffffff;
+}
+.profile.image .icon-list li a {
+    color: #ffffff;
+}
+.profile.image .icon-list li a:hover {
+    color: #14202d;
+}
+.profile.image .profile-stats li p {
+    color: #ffffff;
+}
+.profile.image .profile-stats li h3 {
+    color: #ffffff;
+}
+.profile.image .profile-stats li.followers {
+    background-color: rgba(3, 132, 206, 0.5);
+}
+.profile.image .profile-stats li.following {
+    background-color: rgba(26, 188, 156, 0.5);
+}
+.profile.image .profile-stats li.projects {
+    background-color: rgba(167, 142, 215, 0.5);
+}
+.profile.image .profile-stats li.courses {
+    background-color: rgba(248, 104, 104, 0.5);
+}
+.profile.image .about-me h3, .profile.image .about-me p {
+    color: #ffffff;
+}
+.profile.image .footer h4 {
+    color: #ffffff;
+    }
+    .content-side .content-box .inner {
+    background-color: #f6f6f6;
+    min-height: 100px;
+    position: relative;
+}
+.daily-traffic .inner {
+    margin: 20px 0;
+}
+.daily-traffic .inner:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+.daily-traffic .inner h3 {
+    font-size: 16px;
+    text-align: center;
+}
+.daily-traffic .inner .count-to {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+.social-box .icon-container .inner {
+    display: table-cell;
+    height: 70px;
+    text-align: center;
+    vertical-align: middle;
+    width: 80px;
 }

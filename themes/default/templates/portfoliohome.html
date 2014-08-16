@@ -11,11 +11,15 @@
 <div id="portfolio" ng-app="portfolios" ng-controller="PortfoliosController" ng-init="showData()" >
             <div class="container">
                 <div class="header-portfolios">
-                       <h1>PORTFOLIO</h1>
-                       <h2>Get the lastest insights from Desk</h2>
+                    <div class="pull-right" >
+               <div class="right-inner-addon">
+                   <input type="search" class="form-control" placeholder="Search" ng-model="search.$">
+               </div>
+              </div>
+                       <h1>PORTFOLIO GALLERY</h1>
                     </div>
 
-                <section ng-repeat="portfolio in dataportfolios | pagination: curPage * pageSize | limitTo: pageSize">
+                <section ng-repeat="portfolio in dataportfolios | pagination: curPage * pageSize | limitTo: pageSize| filter:search">
                 <div class="col-sm-6 col-md-3">
                      <div class="thumb-portfolio">
 

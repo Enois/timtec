@@ -7,11 +7,13 @@ from django.utils.http import is_safe_url
 from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from django.db.models import Q
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from accounts.forms import ProfileEditForm
 from accounts.serializers import TimtecUserSerializer
+from accounts.models import TimtecUser
 from braces.views import LoginRequiredMixin
 
 from rest_framework import viewsets
@@ -74,7 +76,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
-class ProfileView(LoginRequiredMixin, DetailView):
+class ProfileView(DetailView):
     model = get_user_model()
     template_name = 'profile.html'
     context_object_name = 'profile_user'
@@ -97,3 +99,11 @@ class TimtecUserViewSet(viewsets.ModelViewSet):
     serializer_class = TimtecUserSerializer
     ordering = ('first_name', 'username',)
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+
+class TeachersView(ListView):
+    context_object_name = 'teachers'
+    template_name = "teachers.html"
+
+    def get_queryset(self):
+        return TimtecUser.objects.all().filter(groups=2)
