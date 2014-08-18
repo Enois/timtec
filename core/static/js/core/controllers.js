@@ -5,27 +5,20 @@
 
     app.controller('HomeCtrl', ['$scope', 'Course','Course_student','HomePage','User','Twitter', function ($scope, Course,Course_student, HomePage, User, Twitter) {
          $scope.myInterval = 8000;
-var id_course =null;
-$scope.user_number_per_courses=[];
-$scope.home_page = new HomePage();
-          HomePage.query({}).$promise
-                    .then(function(home_pages){
+         var id_course =null;
+         $scope.user_number_per_courses=[];
 
-                        $scope.home_pages = home_pages;
-                         home_pages.forEach(function(homepage) {
+        $scope.home_page = new HomePage();
+
+        HomePage.query({}).$promise
+                    .then(function(home_pages){
+                         $scope.home_pages = home_pages;
+                          home_pages.forEach(function(homepage) {
                              if (homepage.id === parseInt(1)) {
                                   $scope.home_page=homepage;
                              }
-                         })
-
-
-
-              });
-
-
-
-
-
+          })
+          });
 
 
         function compare_by_position(a,b) {
@@ -103,7 +96,29 @@ $scope.home_page = new HomePage();
             }
         });
 
+//slider Mentores 2
+         $scope.coming_teachers = User.query({'groups__name': 'professors'}, function(coming_teachers) {
 
+            $scope.coming_teachers_rows_3 = [];
+
+            for (var i = 0; i < coming_teachers.length; i++) {
+                var row = [];
+                row[0] = $scope.coming_teachers[i];
+
+                if (coming_teachers.length - i > 1){
+                    // normal case
+                    row[1] = $scope.coming_teachers[i+1];
+                    if (coming_teachers.length - i > 2)
+                        row[2] = $scope.coming_teachers[i+2];
+                    else
+                        row[2] = $scope.coming_teachers[coming_teachers.length - i - 2];
+                } else {
+                    row[1] = $scope.coming_teachers[coming_teachers.length - i - 1];
+                    row[2] = $scope.coming_teachers[coming_teachers.length - i];
+                }
+                $scope.coming_teachers_rows_3.push(row);
+            }
+        });
 
 
 
@@ -123,6 +138,8 @@ $scope.home_page = new HomePage();
                 } else {
                     row[1] = $scope.coming_mentores[coming_mentores.length - i - 1];
                 }
+
+
                 $scope.coming_mentores_2.push(row);
 
             }

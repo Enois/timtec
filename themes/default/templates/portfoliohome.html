@@ -32,16 +32,8 @@
                               <p>{{ portfolio.description }}</p>
                            </div>
                        </div>
-                     </div>
-                     <div class="user-data">
-                            <a href=""><i class="fa fa-user fa-lg"></i>{{portfolio.user}} {{portfolio.user}}</a>
-                     {% endverbatim %}
-                     </div>
-</div>
-
-
-
-
+                    </div>
+                </div>
                  </section>
             </div>
              <div class="container-btn-section2">
@@ -51,7 +43,7 @@
               <button type="button" class="btn btn-primary" ng-disabled="curPage == 0" ng-click="curPage=curPage-1"> &lt; PREV</button>
            </li>
            <li>
-               {% verbatim %}
+
               <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
               {% endverbatim %}
            </li>

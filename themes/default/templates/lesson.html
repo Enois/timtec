@@ -8,9 +8,6 @@
 {% block js %}
 {{ block.super }}
 {% compressed_js 'lesson' %}
-
-<script type="text/javascript" src="{% static 'js/introjs/lesson.js' %}"></script>
-
 {% endblock %}
 
 {% block content %}
@@ -19,16 +16,6 @@
 window.lessonId = {{ lesson.pk }};
 // Content type id for object type core.Unit used by django generic relations.
 window.unit_content_type_id = {{ unit_content_type_id }};
-
-$(document).ready(function() {
-    $(".nav-tabs a").click(function(e) {
-        e.preventDefault();
-        $(this).tab('show');
-    })
-    $('a.unit').tooltip();
-
-    startIntro();
-
 </script>
 
 <!-- COURSE -->
@@ -129,11 +116,6 @@ $(document).ready(function() {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row" ng-show="section=='video'">
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <button class="btn btn-default" ng-click="nextStep()">Pular Video</button>
-                  </div>
                 </div>
                 <div ng-show="section=='activity'">
                     <div class="course-activity">

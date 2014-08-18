@@ -65,7 +65,7 @@
 <div id="mentores">
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 mentores-text">
+            <div class="col-sm-4 mentores-text">
                 <h2>NOSSO TIME DE MENTORES</h2>
                 {% verbatim %}
                 <p>{{ home_page.text_section_mentator }}</p>
@@ -74,20 +74,21 @@
                         <a class="btn btn-outline-inverse btn-lg btn-section2"  href="#">CONHESA TUDO O TIME</a>
                        </div>
             </div>
-            <div class="col-sm-6 mentores-data">
+            <div class="col-sm-8 mentores-data">
                 <div class="slider-mentores">
                 <div class="slider">
                            {% verbatim %}
                            <carousel interval="myInterval">
-                               <slide ng-repeat="row in coming_mentores_2">
-                                   <div class="col-sm-6" ng-repeat="user in row">
+                               <slide ng-repeat="row in coming_teachers_rows_3">
+                                   <div class="col-sm-4" ng-repeat="user in row">
 
                                  <a ng-href="/profile/{{ user.username }}" class="mentor-link" style="color: #ffffff">
                             <img class="img-circle img-responsive img-mentores-slider" style="content:url({{ user.picture }})">
 
                         <div class="info-mentores">
                            <h5 >{{ user.username }}</h5>
-                            <p><small>{{ user.biography }}</small></p>
+                            <p>{{ user.occupation }}<p>
+                            <p>{{ user.biography }}</p>
 
                         </div>
                                </a>

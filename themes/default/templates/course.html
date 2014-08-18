@@ -25,12 +25,8 @@
 
 {% block content %}
 
-{% if not in_admin %}
-<script type="text/javascript" src="{% static 'js/introjs/course.js' %}"></script>
-{% endif %}
-
 <!-- COURSE -->
-<div id="course" class="course-intro" ng-controller="CourseEditController">
+<div id="course" class="" ng-controller="CourseEditController">
 
     {% if in_admin %}
         <!-- ACTIONS -->
@@ -60,7 +56,7 @@
         <div class="page-header">
             <!-- ROW -->
             <div class="row">
-                <div class="col-md-9 col-sm-8 col-xs-12">
+                <div class="col-md-8 col-sm-8 col-xs-12">
                 {% if in_admin %}
                     <h1>
                         <span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name"
@@ -77,11 +73,18 @@
                     </div>
                 {% else %}
                     <h1>{{course.name}}</h1>
-                        {% include "_course-professors-inline.html" with course=course %}
                 {% endif %}
                 </div>
-
-                <div class="col-md-3 col-sm-4 col-xs-12 textright">
+                <div class="col-md-2 pull-right">
+ <a class="btn btn-default share-btn" href="#" onclick="window.open(
+                              'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                              'fb-share-dialog',
+                              'width=626,height=436');
+                            return false;">
+<i class="fa fa-facebook fa-lg fb"> | Compartiliar</i>
+</a>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-12 textright">
                     {% if in_admin %}
                         <nav class="course-sections textright">
                             <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></span></a>
@@ -104,9 +107,11 @@
                                     href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
                             {% endif %}
                         {% endif %}
+
                     {% endif %}
 
                 </div>
+
             </div>
             <!-- END ROW -->
         </div>
@@ -119,7 +124,7 @@
         <!-- ROW -->
         <div class="row">
             <!-- COL-LG-9 -->
-            <div class="col-md-9 col-sm-8 col-xs-12" ng-init="mediaSection='video'">
+            <div class="col-md-8 col-sm-8 col-xs-12" ng-init="mediaSection='video'">
 
                 {% if in_admin %}
                     <!-- ADD CONTENT -->
@@ -256,48 +261,16 @@
                     <!-- END COURSE-VIDEO -->
                     {% endif %}
                 {% endif %}
-
-                <!-- COURSE-INFO -->
-                <section class="course-info">
-                    <!-- ROW -->
-                    <div class="row">
-                        <div class="application col-sm-6 col-xs-12">
-                            <div class="page-header-double">
-                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> {% trans "Why do this course?" %}</h3>
-                            </div>
-
-                            {% if in_admin %}
-                                <modalmarkdowneditor tabindex="6" on-save="saveCourse()" title="{% trans 'Application' %}" content="course.application"></modalmarkdowneditor>
-                            {% else %}
-                                <div class="content">{{ course.application|timtec_markdown }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="requirement col-sm-6 col-xs-12">
-                            <div class="page-header-double">
-                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "What do I have to know?" %}</h3>
-                            </div>
-                            {% if in_admin %}
-                                <modalmarkdowneditor tabindex="7" on-save="saveCourse()" title="{% trans 'Requirements' %}" content="course.requirement"></modalmarkdowneditor>
-                            {% else %}
-                                <div class="content">{{ course.requirement|timtec_markdown }}</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <!-- END ROW -->
-                </section>
-                <!-- END COURSE-INFO -->
-
                 <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
                 <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
                     <div class="col-xs-12">
                         <!-- ABSTRACT -->
                         <div class="page-header-double top">
-                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}"></i>SOBRE ESSE MODULO:</h3>
                         </div>
 
                         {% if in_admin %}
-                            <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
+                            <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="SOBRE ESSE MODULO:" content="course.abstract"></modalmarkdowneditor>
                         {% else %}
                             {{ course.abstract|timtec_markdown }}
                         {% endif %}
@@ -307,23 +280,50 @@
 
                         <!-- STRUCTURE -->
                         <div class="page-header-double top">
-                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}" class="fa fa-angle-double-right"></i> {% trans 'Course structure' %}</h3>
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}"></i>A ESTRUCTURA DO CURSO:</h3>
                         </div>
 
                         {% if in_admin %}
-                            <modalmarkdowneditor tabindex="3" on-save="saveCourse()" title="{% trans 'Structure' %}" content="course.structure"></modalmarkdowneditor>
+                            <modalmarkdowneditor tabindex="3" on-save="saveCourse()" title="A ESTRUCTURA DO CURSO:" content="course.structure"></modalmarkdowneditor>
                         {% else %}
                             {{ course.structure|timtec_markdown }}
                         {% endif %}
 
                         <hr/>
                         <!-- END STRUCTURE -->
+                        <!-- application2-->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}"></i> {% trans "What do I have to know?" %}</h3>
+                        </div>
+
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="7" on-save="saveCourse()" title="{% trans 'Requirements' %}" content="course.requirement"></modalmarkdowneditor>
+                        {% else %}
+                            {{ course.requirement|timtec_markdown }}
+                        {% endif %}
+
+                        <hr/>
+                        <!-- END application -->
+                       <!-- application-->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}"></i>O QUE VOCÊ VAI APRENDER ?</h3>
+                        </div>
+
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="6" on-save="saveCourse()" title="{% trans 'O QUE VOCÊ VAI APRENDER ?' %}" content="course.application"></modalmarkdowneditor>
+                        {% else %}
+                            {{ course.application|timtec_markdown }}
+                        {% endif %}
+
+                        <hr/>
+                        <!-- END application -->
+
 
                         <!-- COURSE-INSTRUCTORS -->
                         <section class="instructors">
                         {% if in_admin %}
                             <div class="page-header-double">
-                                <h3><i class="fa fa-angle-double-right"></i> {% trans 'Instructors'%}</h3>
+                                <h3>{% trans 'Instructors'%}</h3>
                             </div>
 
                             <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">{% trans 'Organize Instructors'%}</a></p>
@@ -398,7 +398,7 @@
                 <section class="lessons" id="lesson-list">
                     <!-- PAGE-HEADER-DOUBLE -->
                     <div class="page-header-double">
-                        <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
+                        <h3>{% trans "ETAPAS" %}</h3>
                     </div>
                     <!-- END PAGE-HEADER-DOUBLE -->
 
@@ -526,47 +526,11 @@
                                         <span class="description">{{ lesson.desc }}</span>
                                     </p>
 
-                                    <!-- HIDDEN-XS -->
-                                    <div class="hidden-xs">
-                                        <!-- TABLE -->
-                                        <table class="units table ">
-                                            <!-- TR -->
-                                            <tr>
-                                                <!-- FOR UNIT IN UNITS -->
-                                                {% for unit in lesson.units.all %}
-                                                    <!-- TD -->
-                                                    <td>
-                                                        {% if lesson.is_ready and user_is_enrolled %}
-                                                            <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                               data-toggle="tooltip" data-placement="bottom"
-                                                               data-original-title="Unidade {{ forloop.counter }}"
-                                                               href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
-                                                               {% if unit.activity %}
-                                                                   <i class="fa fa-list"></i>
-                                                               {% endif %}
-                                                            </a>
-                                                        {% else %}
-                                                            <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                                  data-toggle="tooltip" data-placement="bottom"
-                                                                  data-original-title="Unidade {{ forloop.counter }}">
-                                                                  {% if unit.activity %}
-                                                                      <i class="fa fa-list"></i>
-                                                                  {% endif %}
-                                                            </span>
-                                                        {% endif %}
-                                                    </td>
-                                                    <!-- END TD -->
-                                                {% endfor %}
-                                                <!-- END FOR -->
-                                            </tr>
-                                            <!-- END TR -->
-                                        </table>
-                                        <!-- END TABLE -->
-                                    </div>
-                                    <!-- END HIDDEN-XS -->
 
                                     {% if lesson.is_ready %}
+                                        <div class="lesson-icon">
                                         <p><i class="fa fa-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="fa fa-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
+                                   </div>
                                     {% endif %}
                                 </div>
                                 <!-- END COL-LG-9 -->
@@ -579,16 +543,16 @@
                 <!-- END COURSE-LESSONS -->
 
             </div>
-            <div class="col-md-3 col-sm-4 hidden-xs">
+            <div class="col-md-4 col-sm-4 hidden-xs">
                 <!-- COURSE-SUMMARY -->
                 <section class="summary">
                     <!-- ABSTRACT -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}"></i>SOBRE ESSE MODULO:</h3>
                     </div>
 
                     {% if in_admin %}
-                        <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
+                        <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="SOBRE ESSE MODULO:" content="course.abstract"></modalmarkdowneditor>
                     {% else %}
                         {{course.abstract|timtec_markdown}}
                     {% endif %}
@@ -598,16 +562,43 @@
 
                     <!-- STRUCTURE -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}" class="fa fa-angle-double-right"></i> {% trans 'Course structure' %}</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}"></i>A ESTRUCTURA DO CURSO:</h3>
                     </div>
                     {% if in_admin %}
-                        <modalmarkdowneditor tabindex="3" on-save="saveCourse()" title="{% trans 'Structure' %}" content="course.structure"></modalmarkdowneditor>
+                        <modalmarkdowneditor tabindex="3" on-save="saveCourse()" title="A ESTRUCTURA DO CURSO:" content="course.structure"></modalmarkdowneditor>
                     {% else %}
                         {{course.structure|timtec_markdown}}
                     {% endif %}
 
                     <hr/>
                     <!-- END STRUCTURE -->
+                   <!-- application2-->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}"></i> {% trans "CARGA HORARIA E REQUISITOS:" %}</h3>
+                        </div>
+
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="7" on-save="saveCourse()" title="{% trans 'CARGA HORARIA E REQUISITOS' %}" content="course.requirement"></modalmarkdowneditor>
+                        {% else %}
+                            {{ course.requirement|timtec_markdown }}
+                        {% endif %}
+
+                        <hr/>
+                        <!-- END application -->
+                      <!-- application-->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}"></i> {% trans "O QUE VOCÊ VAI APRENDER ?" %}</h3>
+                        </div>
+
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="6" on-save="saveCourse()" title="{% trans 'O QUE VOCÊ VAI APRENDER ?' %}" content="course.application"></modalmarkdowneditor>
+                        {% else %}
+                            {{ course.application|timtec_markdown }}
+                        {% endif %}
+
+                        <hr/>
+                        <!-- END application -->
+
 
                     <!-- COURSE-INSTRUCTORS -->
                     <section class="instructors" id="instructors-info">
@@ -662,20 +653,26 @@
                         {% else %}
                             {% if course.courseprofessor_set.all %}
                             <div class="page-header-double top">
-                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
+                                <h3>{% trans "Instructors" %}</h3>
                             </div>
 
                             {% for course_professor in course.courseprofessor_set.all %}
-                                <div id="{{ course_professor.user.username }}" class="instructor row">
-                                    <div class="instructor-photo col-sm-12">
-                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-circle">
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
-                                        <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
-                                        <p>{{ course_professor.biography|timtec_markdown }}</p>
-                                    </div>
+                                <!--test -->
+                                <div class="instructor">
+                                <div class="media">
+                  <a href="/profile/{{ course_professor.user.username }}" target="_blank" class="pull-left">
+                  <div class="instructor-pic">
+                      <img  src="{{ course_professor.user.get_picture_url }}" class="media-object img-circle">
+                 </div>
+                 </a>
+              <div class="media-body">
+                 <h4 class="media-heading">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h4>
+                  <a>{{ course_professor.role }}</a>
+
+              </div>
+          </div>
                                 </div>
+                                <!--test -->
                             {% endfor %}
                             {% endif %}
                         {% endif %}

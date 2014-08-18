@@ -48,15 +48,14 @@ a, a:hover, a:active {
 // Page Headers
 .page-header-double {
   border-bottom:1px solid @gray-lighter;
-  margin:40px 0 20px;
   padding:0;
   h1,h2,h3,h4,h5,h6 {
-    border-bottom:1px solid @gray-lighter;
-    color:#2c3e50;
-    margin-bottom:1px;
-    padding-bottom:7px;
-    i {
-      color:#2980b9;
+    border-bottom: 2px solid #a5a5a5;
+    color: #72c6de;
+    font-weight: bolder;
+    padding-bottom: 10px;
+    p {
+      color:#333333;
     }
   }
 }
@@ -1214,6 +1213,17 @@ a, a:hover, a:active {
     .page-header {
       border-bottom: 1px solid @gray-lighter;
       margin-bottom: 20px;
+      .share-btn{
+         background-color: #1d6fa5;
+         color: white;
+      }
+      .fa{
+         padding-bottom: 10px;
+    padding-top: 10px;
+      }
+      i{
+        font-size: 15px;
+      }
       h1 {
         .bottom(0,0);
         .top(0,0);
@@ -1362,7 +1372,11 @@ a, a:hover, a:active {
   // COURSE SUMMARY - Course intro
   // ********************************************************************* //
   .summary {
+    margin-bottom: 20px;
     margin-top: 20px;
+    p{
+      color:#333333;
+    }
   }
 
   // COURSE LESSONS - Course intro
@@ -1372,13 +1386,18 @@ a, a:hover, a:active {
     .lesson {
       margin-bottom: 40px;
       margin-top: 20px;
+      .lesson-icon>p{
+        margin-top: 20px;
+      }
       .title {
-        display:block;
-        font-size: 16px;
-        font-weight:regular;
+       display: block;
+       font-size: 25px;
+       font-weight: bolder;
+        color: #72c6de;
+        text-transform: capitalize;
       }
       .description {
-        font-size:13px;
+        font-size: 15px;
       }
       .editable {
         ul {
@@ -1464,6 +1483,28 @@ a, a:hover, a:active {
   }
   // END INSTRUCTORS
 
+//INSTRUCTOR ENOIS
+
+#instructors-info .instructor{
+  .media-body{
+    padding-top: 20px;
+    h4{
+    color: #747474;
+    font-weight: bolder;
+    text-decoration: underline;
+    text-transform: uppercase;
+    }
+    a{
+      color:#747474;
+      font-size: 18px;
+      text-transform: capitalize;
+    }
+  }
+
+  img{
+    height: 80px;
+  }
+}
 
   // COURSE THUMBNAIL - General
   // ********************************************************************* //
@@ -2913,7 +2954,9 @@ body {
 }
 
 #mentores h2{
-   font-weight: bold;
+    font-size: 35px;
+    font-weight: bold;
+    width: 75%;
 }
 #mentores .btn-section2 {
   border-radius: 0;
@@ -2942,25 +2985,24 @@ body {
    display: block;
    margin: 5% -40px 5% 50px;
 }
-#mentores .slider-mentores .slider{
-    padding-left: 6%;
+#mentores .slider-mentores p{
+  width: 120%;
+  margin: 0;
+  font-size: medium;
 }
-
 #mentores .img-mentores-slider {
-  width: 40%;
+ width: 50%;
 }
 #mentores .info-mentores {
-  text-align: left;
-  width: 70%;
+ text-align: left;
+width: 70%;
+height: 150px;
 }
 #mentores .info-mentores h5{
  margin-top: 9%;
 text-transform: uppercase;
 font-weight: bold;
 margin-bottom: auto;
-}
-#mentores .info-mentores p{
-  margin-top: 6px;
 }
 #mentores .carousel-control.left {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
@@ -2982,10 +3024,14 @@ margin-bottom: auto;
    font-size: 70px;
    font-family: inherit;
   top: 30%;
+  margin-right: -40px;
   cursor: e-resize;
 }
 #mentores .mentores-text{
   margin-top: 3%;
+}
+#mentores .mentores-text p{
+  font-size: 18px;
 }
 #mentores .icon-prev {
   left: -25px;
@@ -3003,7 +3049,7 @@ margin-bottom: auto;
    margin-bottom: 3%;
 }
 #enois .text {
- position: absolute;
+ position: relative;
  color: #ffffff;
 }
 #enois img {

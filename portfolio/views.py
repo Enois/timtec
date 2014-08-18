@@ -7,8 +7,6 @@ from .serializers import PortfolioSerializer, CommentSerializer, PortfolioThumbS
 from braces import views
 from braces.views import LoginRequiredMixin
 from django.views.generic import UpdateView, CreateView
-from django.core.files.images import get_image_dimensions
-from django import forms
 
 
 class PortfolioCreateView(CreateView, LoginRequiredMixin, views.GroupRequiredMixin,):
@@ -76,8 +74,6 @@ class PortfolioViewSet(viewsets.ModelViewSet):
         return data
 
 
-
-
 class PortfolioThumbViewSet(viewsets.ModelViewSet):
     model = Portfolio
     lookup_field = 'id'
@@ -107,7 +103,6 @@ class PortfolioView(DetailView):
             context['portfolio_user_id'] = portfolio_user_id
 
         return context
-
 
 
 class CommentViewSet(viewsets.ModelViewSet):

@@ -56,7 +56,7 @@ class CourseMaterialViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
 
     def pre_save(self, obj):
-        # Get Question vote usign kwarg as questionId
+
         if 'course' in self.kwargs:
             obj.course = Course.objects.get(id=int(self.kwargs['course']))
             self.kwargs['course'] = obj.course

@@ -5,8 +5,12 @@ var app = angular.module('portfolios.controllers', [ ]);
 app.controller('PortfoliosController',
     ['$scope', 'Portfolio','User',
     function ($scope,Portfolio,User) {
-
+         $scope.user=new User();
          $scope.datalist=Portfolio.query({status: 'published'});
+
+
+
+
 
 
 
@@ -14,8 +18,8 @@ app.controller('PortfoliosController',
 
 
             $scope.curPage = 0;
-            $scope.pageSize = 8;
-            $scope.dataportfolios=  $scope.datalist ;
+            $scope.pageSize = 16;
+            $scope.dataportfolios=  $scope.datalist;
 
 
 
