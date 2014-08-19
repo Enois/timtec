@@ -16,19 +16,19 @@
                    <input type="search" class="form-control" placeholder="Search" ng-model="search.$">
                </div>
               </div>
-                       <h1>PORTFOLIO GALLERY</h1>
+                      <h2><i class="fa fa-angle-right"></i> {% trans 'PORTFOLIOS' %}</h2>
                     </div>
-
                 <section ng-repeat="portfolio in dataportfolios | pagination: curPage * pageSize | limitTo: pageSize| filter:search">
                 <div class="col-sm-6 col-md-3">
                      <div class="thumb-portfolio">
 
                            {% verbatim %}
+
 	                      <img  ng-src="{{portfolio.thumbnail_url}}" title="" alt=""/>
 
                        <div>
                            <div>
-                              <h2>{{ portfolio.name }}</h2>
+                            <a ng-href="/portfolios/portfolio/w./{{ portfolio.id }}/">  <h2>{{ portfolio.name }}</h2></a>
                               <p>{{ portfolio.description }}</p>
                            </div>
                        </div>

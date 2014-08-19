@@ -4,12 +4,10 @@
 {% block content %}
 
   <!--  PORTFOLIO   -->
-        <div id="portfolio">
+        <div id="mentore">
             <div class="container">
-                <div class="header-portfolios">
-
-                       <h1>Teachers</h1>
-
+                <div class="header">
+                        <h2><i class="fa fa-angle-right"></i> {% trans 'MENTORES' %}</h2>
                 </div>
                 <div class="row">
                     {% for teacher in teachers %}
@@ -19,13 +17,6 @@
 
           <div class="boxed profile dark">
             <div class="inner">
-
-              <!-- Profile Title Start -->
-              <div class="title">
-                <a class="share-profile" target="_blank" href="/profile/{{ teacher.username }}">Ver mais</a>
-              </div>
-              <!-- Profile Title End -->
-
               <div class="row profile-data">
                 <!-- Left Side Start -->
                 <div class="col-lg-5 col-md-5 col-sm-3 col-xs-4 text-center">
@@ -38,7 +29,7 @@
 
                   <!-- Send Message Start -->
                   <div class="send-msg">
-                    <button type="button" class="btn btn-sm btn-default" target="_blank" onClick="window.location.href='https://mail.google.com/mail/?view=cm&fs=1&to={{ teacher.email }}';">Send Message</button>
+                    <button type="button" class="btn btn-sm btn-default " target="_blank" onClick="window.location.href='/profile/{{ teacher.username }}';"><i class="share-profile"></i>Ver mais</button>
                   </div>
                   <!-- Send Message End -->
 
@@ -60,18 +51,6 @@
                 </div>
                 <!-- Right Side End -->
               </div>
-
-              <!-- Profile Stats Start -->
-              <div class="row">
-                <ul class="profile-stats">
-                  <li class="courses col-lg-12 col-md-6 col-sm-12 col-xs-12">
-                    <h3>Joined Us</h3>
-                      <p>{{ teacher.date_joined }}</p>
-                  </li>
-                </ul>
-              </div>
-              <!-- Profile Stats End -->
-
               <!-- Profile About Me Start -->
               <div class="row about-me">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -81,23 +60,6 @@
               </div>
               <!-- Profile About Me End -->
 
-              <!-- Profile Footer Start -->
-              <div class="footer">
-                <div class="col-lg-5 col-md-12 col-sm-6 col-xs-6">
-                  <h4>Follow this teacher at</h4>
-                </div>
-                <div class="col-lg-7 col-md-12 col-sm-6 col-xs-6">
-                  <ul class="profile-socials">
-                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a class="pinterest" href="#"><i class="fa fa-pinterest"></i></a></li>
-                    <li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-              <!-- Profile Footer End -->
 
             </div>
           </div>

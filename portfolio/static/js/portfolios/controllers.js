@@ -18,7 +18,7 @@ app.controller('PortfoliosController',
 
 
             $scope.curPage = 0;
-            $scope.pageSize = 16;
+            $scope.pageSize = 8;
             $scope.dataportfolios=  $scope.datalist;
 
 
