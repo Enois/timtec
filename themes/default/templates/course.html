@@ -75,15 +75,18 @@
                     <h1>{{course.name}}</h1>
                 {% endif %}
                 </div>
+             {% if in_admin %}
+            {% else %}
                 <div class="col-md-2 pull-right">
- <a class="btn btn-default share-btn" href="#" onclick="window.open(
+                       <a class="btn btn-default share-btn" href="#" onclick="window.open(
                               'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
                               'fb-share-dialog',
                               'width=626,height=436');
                             return false;">
-<i class="fa fa-facebook fa-lg fb"> | Compartiliar</i>
-</a>
+                            <i class="fa fa-facebook fa-lg fb"> | Compartiliar</i>
+                       </a>
                 </div>
+             {% endif %}
                 <div class="col-md-2 col-sm-4 col-xs-12 textright">
                     {% if in_admin %}
                         <nav class="course-sections textright">

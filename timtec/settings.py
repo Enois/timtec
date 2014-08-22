@@ -143,7 +143,6 @@ PIPELINE_CSS = {
             'codemirror/addon/hint/show-hint.css',
             'codemirror/theme/monokai.css',
             'css/codemirrorconf.css',
-            'ng-tags-input/ng-tags-input.css',
             'intro.js/introjs.css',
             'intro.js/themes/introjs-nassim.css',
         ),
