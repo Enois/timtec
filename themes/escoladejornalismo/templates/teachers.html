@@ -24,7 +24,7 @@
 
                                 <!-- Profile Avatar Start -->
                                 <div class="profile-avatar">
-                                    {% thumbnail teacher.picture "130x130" as thumb %}
+                                    {% thumbnail teacher.picture "130x130" crop="center" as thumb %}
                                     <img alt="{{ teacher.username }}" src="{{ thumb.url }}">
                                     {% empty %}
                                     <img alt="{{ teacher.username }}" src="{% static 'img/avatar-default.png' %}">

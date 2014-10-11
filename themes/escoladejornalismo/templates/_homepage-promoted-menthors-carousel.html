@@ -1,17 +1,22 @@
+{% load thumbnail %}
+
 <div class="slider" ng-controller="MenthorsCarouselCtrl">
     <carousel interval="myInterval">
         {% for slide in slides %}
         <slide>
             {% for menthor in slide %}
-            <div class="col-sm-4" style="height:360px;">
+            <div class="menthor-slide col-sm-4" style="height:360px;">
                 <a href="{% url 'profile' username=menthor.username %}" class="mentor-link" style="color: #ffffff">
                     <img class="img-circle img-responsive img-mentores-slider"
                         {% if menthor.picture %}
-                        style="content:url({{ menthor.picture.url }})"
+                        {% thumbnail menthor.picture "130x130" crop="center" as thumb %}
+                        style="content:url({{ thumb.url }})"
+                        {% endthumbnail %}
                         {% endif %}>
                     <div class="info-mentores">
                         <h5>{{ menthor.get_full_name }}</h5>
                         <p>{{ menthor.occupation }}</p>
+                        <p class="bio">{{ menthor.biography }}</p>
                     </div>
                 </a>
             </div>
