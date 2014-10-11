@@ -1,4 +1,5 @@
 {% load thumbnail %}
+{% load smart_truncate_chars %}
 
 <div class="slider" ng-controller="MenthorsCarouselCtrl">
     <carousel interval="myInterval">
@@ -16,7 +17,7 @@
                     <div class="info-mentores">
                         <h5>{{ menthor.get_full_name }}</h5>
                         <p>{{ menthor.occupation }}</p>
-                        <p class="bio">{{ menthor.biography }}</p>
+                        <p class="bio">{{ menthor.biography|smarttruncatechars:120 }}</p>
                     </div>
                 </a>
             </div>
