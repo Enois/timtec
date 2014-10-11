@@ -29,7 +29,7 @@ from reports.views import UserCourseStats, CourseStatsByLessonViewSet
 from portfolio.views import (PortfolioViewSet, PortfolioCommentViewSet,
                              PortfolioThumbViewSet, PortfoliosView,
                              UserPortfoliosView, CreatePortfolioView,
-                             PortfolioView, UpdatePortfolioView)
+                             PortfolioView, UpdatePortfolioView, DeletePortfolioView)
 from rest_framework import routers
 from django_markdown import flatpages
 from enoisoverrides.views import EnoisProfileView, TeachersView
@@ -96,6 +96,8 @@ urlpatterns = patterns(
         PortfolioView.as_view(), name='portfolio_view'),
     url(r'^trampos/(?P<pk>[1-9][0-9]*)/editar$',
         UpdatePortfolioView.as_view(), name='portfolio_edit'),
+    url(r'^trampos/(?P<pk>[1-9][0-9]*)/deletar$',
+        DeletePortfolioView.as_view(), name='portfolio_delete'),
     url(r'^meus-trampos/$',
         UserPortfoliosView.as_view(), name='user_portfolios'),
     url(r'^meus-trampos/novo/$',

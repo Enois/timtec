@@ -1,47 +1,59 @@
 from rest_framework import viewsets
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, DeleteView, UpdateView, CreateView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from .models import Portfolio, PortfolioComment
 from .serializers import PortfolioSerializer, PortfolioCommentSerializer, PortfolioThumbSerializer
 from braces import views
 from braces.views import LoginRequiredMixin
-from django.views.generic import UpdateView, CreateView
+from accounts.models import TimtecUser
+from django.core.urlresolvers import reverse_lazy
 
 
 class CreatePortfolioView(CreateView, LoginRequiredMixin, views.GroupRequiredMixin,):
     model = Portfolio
     template_name = 'portfolio-edit.html'
-    group_required = u'students'
+    group_required = 'students'
     raise_exception = True
+    fields = ('name', 'video', 'description', 'tags', 'home_published')
 
     def get_context_data(self, **kwargs):
         context = super(CreatePortfolioView, self).get_context_data(**kwargs)
-        context['in_student'] = True
-        if self.request.user is None:
-            portfolio_user_id = self.object.user.id
-            context['portfolio_user_id'] = portfolio_user_id
-            return context
-        else:
-            return context
+        context['portfolio'] = self.object
+        context['user_can_promote'] = self.request.user.is_staff
+        context['right_button_columns'] = 12
+        return context
 
+    def get_form_kwargs(self):
+        kwargs = super(CreatePortfolioView, self).get_form_kwargs()
+        if self.request.method in ['PUT', 'POST'] and kwargs.get('instance', None) is None:
+            kwargs['instance'] = self.model(user=TimtecUser.objects.get(pk=self.request.user.id))
+        return kwargs
+
+    def get_success_url(self):
+        return reverse_lazy('portfolio_view', kwargs={'pk': self.object.id})
 
 class UpdatePortfolioView(LoginRequiredMixin, UpdateView, views.GroupRequiredMixin,):
     model = Portfolio
-    template_name = 'portfolio.html'
-    group_required = u'students'
+    template_name = 'portfolio-edit.html'
+    group_required = 'students'
     raise_exception = True
+    fields = ('name', 'video', 'description', 'tags', 'home_published')
 
     def get_context_data(self, **kwargs):
         context = super(UpdatePortfolioView, self).get_context_data(**kwargs)
-        context['in_student'] = True
-        user = self.request.user
-
-        if user.is_authenticated():
-            portfolio_user_id = self.object.user.id
-            context['portfolio_user_id'] = portfolio_user_id
-
+        context['portfolio'] = self.object
+        context['user_can_promote'] = self.request.user.is_staff
+        context['right-button-columns'] = 7
         return context
+
+    def get_success_url(self):
+        return reverse_lazy('portfolio_view', kwargs={'pk': self.object.id})
+
+class DeletePortfolioView(LoginRequiredMixin, DeleteView, views.GroupRequiredMixin):
+    model = Portfolio
+    group_required = 'students'
+    template_name = 'portfolio-delete.html'
 
 
 class PortfolioView(DetailView):
@@ -50,12 +62,9 @@ class PortfolioView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PortfolioView, self).get_context_data(**kwargs)
-        user = self.request.user
-
-        if user.is_authenticated():
-            portfolio_user_id = self.object.user.id
-            context['portfolio_user_id'] = portfolio_user_id
-
+        context['portfolio_items'] = Portfolio.objects.filter(
+            user=self.request.user.id).order_by('-timestamp').exclude(
+                id=self.object.id)[:2]
         return context
 
 
@@ -73,7 +82,7 @@ class PortfoliosView(ListView):
     paginate_by = 8
 
     def get_queryset(self):
-        return Portfolio.objects.all().filter(home_published=True)
+        return Portfolio.objects.filter(status='published')
 
 
 class PortfolioViewSet(viewsets.ModelViewSet):

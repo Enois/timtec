@@ -475,6 +475,7 @@ INSTALLED_APPS = (
     # Escola de Jornalismo
     'sorl.thumbnail',
     'taggit',
+    'widget_tweaks',
     'portfolio',
     'homepage',
     'enoisoverrides',
