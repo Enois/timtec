@@ -8,6 +8,7 @@ from braces import views
 from braces.views import LoginRequiredMixin
 from accounts.models import TimtecUser
 from django.core.urlresolvers import reverse_lazy
+from portfolio.forms import EnoisPortfolioForm
 
 
 class CreatePortfolioView(CreateView, LoginRequiredMixin, views.GroupRequiredMixin,):
@@ -38,7 +39,7 @@ class UpdatePortfolioView(LoginRequiredMixin, UpdateView, views.GroupRequiredMix
     template_name = 'portfolio-edit.html'
     group_required = 'students'
     raise_exception = True
-    fields = ('name', 'video', 'description', 'tags', 'home_published')
+    form_class = EnoisPortfolioForm
 
     def get_context_data(self, **kwargs):
         context = super(UpdatePortfolioView, self).get_context_data(**kwargs)
