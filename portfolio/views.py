@@ -69,7 +69,7 @@ class PortfolioView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PortfolioView, self).get_context_data(**kwargs)
         context['portfolio_items'] = Portfolio.objects.filter(
-            user=self.request.user.id).order_by('-timestamp').exclude(
+            user=self.object.user_id).order_by('-timestamp').exclude(
                 id=self.object.id)[:2]
         return context
 
