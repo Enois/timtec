@@ -56,6 +56,9 @@ class DeletePortfolioView(LoginRequiredMixin, DeleteView, views.GroupRequiredMix
     group_required = 'students'
     template_name = 'portfolio-delete.html'
 
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'username': self.object.user_id})
+
 
 class PortfolioView(DetailView):
     model = Portfolio
