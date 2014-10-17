@@ -2,9 +2,15 @@
 <section>
     <div class="col-sm-6 col-md-3">
         <div class="thumb-portfolio">
-            {% thumbnail portfolio.thumbnail "250x230" crop='center' as thumb %}
-            <img src="{{ thumb.url }}" title="" alt=""/>
-            {% endthumbnail %}
+            {% if portfolio.thumbnail %}
+                {% thumbnail portfolio.thumbnail "250x230" crop='center' as thumb %}
+                <img src="{{ thumb.url }}" title="" alt=""/>
+                {% endthumbnail %}
+            {% else %}
+                {% thumbnail portfolio.get_thumbnail_url "250x230" crop='center' as thumb %}
+                <img src="{{ thumb.url }}" title="" alt=""/>
+                {% endthumbnail %}
+            {% endif %}
             <div>
                 <div>
                     <h2><a href="{% url 'portfolio_view' pk=portfolio.id %}">{{ portfolio.name }}</a></h2>

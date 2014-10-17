@@ -16,7 +16,7 @@ class CreatePortfolioView(CreateView, LoginRequiredMixin, views.GroupRequiredMix
     template_name = 'portfolio-edit.html'
     group_required = 'students'
     raise_exception = True
-    fields = ('name', 'video', 'description', 'tags', 'home_published')
+    form_class = EnoisPortfolioForm
 
     def get_context_data(self, **kwargs):
         context = super(CreatePortfolioView, self).get_context_data(**kwargs)
@@ -27,6 +27,8 @@ class CreatePortfolioView(CreateView, LoginRequiredMixin, views.GroupRequiredMix
 
     def get_form_kwargs(self):
         kwargs = super(CreatePortfolioView, self).get_form_kwargs()
+
+        # provide a model instance with user field populated
         if self.request.method in ['PUT', 'POST'] and kwargs.get('instance', None) is None:
             kwargs['instance'] = self.model(user=TimtecUser.objects.get(pk=self.request.user.id))
         return kwargs

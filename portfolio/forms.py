@@ -6,7 +6,7 @@ from portfolio.utils import get_youtube_id
 class EnoisPortfolioForm(forms.ModelForm):
     class Meta:
         model = Portfolio
-        fields = ('name', 'video', 'new_video', 'description', 'tags', 'home_published')
+        fields = ('name', 'video', 'thumbnail', 'description', 'tags', 'home_published')
 
     new_video = forms.URLField(required=False, label='Trocar o video')
 
@@ -16,13 +16,17 @@ class EnoisPortfolioForm(forms.ModelForm):
 
     def clean(self):
         # See http://stackoverflow.com/a/8996801/207119
-        video = self.cleaned_data.get('video')
+        video = self.instance.video
         new_video = self.cleaned_data.get('new_video')
 
         if not video and not new_video:
-            raise forms.ValidationError('Video is required')
+            raise forms.ValidationError({'new_video': ['Video is required!',]})
         elif not video:
-            video = Video.objects.create(youtube_id=get_youtube_id(new_video))
-            self.cleaned_data['video'] = video
+            video = Video.objects.create(
+                youtube_id=get_youtube_id(new_video),
+                name=self.cleaned_data.get('name', '')
+            )
+
+        self.cleaned_data['video'] = video
 
         return super(EnoisPortfolioForm, self).clean()

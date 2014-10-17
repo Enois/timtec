@@ -69,18 +69,18 @@
 
                 <h3>Portfolio criado por</h3>
                 <div class="media">
-                    <a href="{% url 'profile' username=user.username %}" class="pull-left">
+                    <a href="{% url 'profile' username=portfolio.user.username %}" class="pull-left">
                         <div class="thumbnail">
-                            <img src="{{ user.picture.url }}" class="media-object">
+                            <img src="{{ portfolio.user.picture.url }}" class="media-object">
                         </div>
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading">{{ user.first_name }} {{ user.last_name }}</h4>
+                        <h4 class="media-heading">{{ portfolio.user.first_name }} {{ portfolio.user.last_name }}</h4>
                         <i class="fa fa-map-marker fa-lg"></i>
-                        <a>{{ user.city }}</a>
+                        <a>{{ portfolio.user.city }}</a>
                     </div>
                     <small><i>Posted on {{ portfolio.timestamp | date:"d M, y" }}</i></small>
-                    <a href="{% url 'profile' username=user.username %}"
+                    <a href="{% url 'profile' username=portfolio.user.username %}"
                         class="btn btn-outline-inverse btn-lg btn-section-user">
                         Ver Perfil Completo
                     </a>
@@ -93,9 +93,7 @@
                     <div class="media">
                         <a href="{% url 'portfolio_view' pk=item.id %}" class="pull-left">
                             <div class="thumbnail">
-                                {% if item.thumbnail %}
-                                <img src="{{ item.thumbnail.url }}" class="media-object">
-                                {% endif %}
+                                <img src="{{ item.get_thumbnail_url }}" class="media-object">
                             </div>
                         </a>
                         <div class="media-body">

@@ -16,9 +16,9 @@ class Portfolio(models.Model):
     name = models.CharField(_('Name'), max_length=255, blank=True)
     description = models.TextField(_('Description'), null=True, blank=True)
     timestamp = models.DateTimeField(_('Date'), auto_now_add=True)
-    video = models.ForeignKey(Video, verbose_name=_('video'), null=True, blank=True)
+    video = models.ForeignKey(Video, verbose_name=_('video'), null=True, blank=False)
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
     thumbnail = models.ImageField(_('Thumbnail'), upload_to='portfolio_thumbnails', null=True, blank=True)
     home_published = models.BooleanField(default=False)
 
@@ -32,6 +32,8 @@ class Portfolio(models.Model):
     def get_thumbnail_url(self):
         if self.thumbnail:
             return self.thumbnail.url
+        elif self.video:
+            return 'http://img.youtube.com/vi/{0}/hqdefault.jpg'.format(self.video.youtube_id)
         return ''
 
 
