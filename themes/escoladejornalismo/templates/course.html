@@ -672,7 +672,7 @@
                                             <h4 class="media-heading">
                                                 {{ course_professor.user.first_name }} {{ course_professor.user.last_name }}
                                             </h4>
-                                            <a>{{ course_professor.role }}</a>
+                                            <a>{% trans course_professor.get_role_display %}</a>
                                         </div>
                                     </div>
                                 </div>

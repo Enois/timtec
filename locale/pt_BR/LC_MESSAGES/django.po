@@ -417,7 +417,7 @@ msgstr "Cursos"
 
 #: core/models.py:194
 msgid "Instructor"
-msgstr "Instrutor"
+msgstr "Mentor"
 
 #: core/models.py:195
 msgid "Assistant"
@@ -807,7 +807,7 @@ msgstr "Estrutura"
 #: themes/default/templates/new_course.html:253
 #: themes/default/templates/new_course.html:455
 msgid "Instructors"
-msgstr "Instrutores"
+msgstr "Mentores"
 
 #: themes/default/templates/course.html:221
 #: themes/default/templates/new_course.html:409
@@ -1158,13 +1158,13 @@ msgstr "Requisitos"
 #: themes/default/templates/new_course.html:258
 #: themes/default/templates/new_course.html:460
 msgid "Organize Instructors"
-msgstr "Organizar instrutores"
+msgstr "Organizar mentores"
 
 #: themes/default/templates/new_course.html:303
 #: themes/default/templates/new_course.html:504
 #: themes/timtec/templates/new_course.html:342
 msgid "Add instructor"
-msgstr "Adicionar instrutor"
+msgstr "Adicionar mentor"
 
 #: themes/default/templates/new_course.html:319
 #: themes/timtec/templates/new_course.html:208
