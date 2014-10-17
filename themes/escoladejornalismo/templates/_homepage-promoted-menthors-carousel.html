@@ -11,7 +11,7 @@
                     <img class="img-circle img-responsive img-mentores-slider"
                         {% if menthor.picture %}
                         {% thumbnail menthor.picture "130x130" crop="center" as thumb %}
-                        style="content:url({{ thumb.url }})"
+                        src="{{ thumb.url }}"
                         {% endthumbnail %}
                         {% endif %}>
                     <div class="info-mentores">
