@@ -14,10 +14,6 @@ body {
   font-weight: bold;
   font-size: 14px;
 }
-.btn-social{
-  color: #006686;
-  line-height: 2em;
-}
 .dropdown-menu-user{
   margin-left: -93%;
   opacity: 0.95;
@@ -56,9 +52,6 @@ body {
     bottom: 7%;
     position: absolute;
   }
-  .btn-social {
-    margin-left: 10px;
-  }
 }
 
 /* Extra Small */
@@ -67,9 +60,6 @@ body {
     font-size: 18px;
     bottom: 10%;
     position: absolute;
-  }
-  .btn-social {
-    margin-left: 10px;
   }
 }
 
@@ -1282,4 +1272,29 @@ body {
 }
 #thumbnail-video img {
   width: 100%;
+}
+
+.navbar-social {
+  @media(max-width:767px) {
+    margin: 7.5px 0;
+  }
+  @media(min-width: 768px) {
+    padding-top: 1em;
+  }
+  .social-links {
+    @media(min-width: 768px) {
+      padding-top: 0.66em;
+    }
+  }
+  .fa-social {
+    display: inline-block;
+    height: 2em;
+    width: 2em;
+    padding: 0;
+    color: #006686;
+    line-height: 1.8em;
+    &:hover {
+      background: transparent;
+    }
+  }
 }
