@@ -508,7 +508,9 @@
                             <div class="lesson row">
                                 <!-- COL-LG-3 -->
                                 <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                                    <img src="{{ lesson.thumbnail }}" class="img-thumbnail img-responsive">
+                                    <a href="{% url 'lesson' course.slug lesson.slug %}" class="js-login-required title">
+                                        <img src="{{ lesson.thumbnail }}" class="img-thumbnail img-responsive">
+                                    </a>
                                 </div>
                                 <!-- END COL-LG-3 -->
 
@@ -516,8 +518,8 @@
                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 
                                     <p>
-                                        {% if lesson.is_ready and user_is_enrolled %}
-                                            <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
+                                        {% if lesson.is_ready %}
+                                            <a href="{% url 'lesson' course.slug lesson.slug %}" class="js-login-required title">{{ lesson.name }}</a>
                                         {% else %}
                                             <span class="title">{{ lesson.name }}</span>
                                         {% endif %}
