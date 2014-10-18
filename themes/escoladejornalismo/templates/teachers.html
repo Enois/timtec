@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load thumbnail %}
+{% load smart_truncate_chars %}
 {% load staticfiles %}
 
 {% block content %}
@@ -51,18 +52,12 @@
                             <div class="col-lg-12 col-md-7 col-sm-9 col-xs-8">
                                 <ul class="icon-list list-unstyled">
                                     <li><i class="fa fa-envelope"></i>{{ teacher.email }}</li>
-                                    {% if teacher.city %}
                                     <li><i class="fa fa-map-marker"></i>{{ teacher.city }}</li>
-                                    {% endif %}
-                                    {% if teacher.occupation %}
                                     <li><i class="fa fa-suitcase"></i>{{ teacher.occupation }}</li>
-                                    {% endif %}
-                                    {% if teacher.site %}
                                     <li>
                                         <i class="fa fa-link"></i>
                                         <a href="{{ teacher.site }}">{{ teacher.site }}</a>
                                     </li>
-                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
@@ -72,7 +67,7 @@
                         <div class="row about-me">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <h3>{% trans 'Bio' %}</h3>
-                                <p>{{ teacher.biography }}</p>
+                                <p class="bio">{{ teacher.biography|smarttruncatechars:200 }}</p>
                             </div>
                         </div>
                         <!-- Profile About Me End -->
