@@ -71,7 +71,7 @@
                 <div class="media">
                     <a href="{% url 'profile' username=portfolio.user.username %}" class="pull-left">
                         <div class="thumbnail">
-                            <img src="{{ portfolio.user.picture.url }}" class="media-object">
+                            <img src="{{ portfolio.user.get_picture_url }}" class="media-object">
                         </div>
                     </a>
                     <div class="media-body">
