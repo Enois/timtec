@@ -1,8 +1,11 @@
+from django.core.urlresolvers import reverse
+from django.contrib.auth import get_user_model
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+
 from accounts.models import TimtecUser
+from core.views import EnrollCourseView, AcceptTermsView
 
 
 class EnoisProfileView(DetailView):
@@ -22,7 +25,6 @@ class EnoisProfileView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data()
         context['portfolios'] = context['profile_user'].portfolio_set.all().order_by('-timestamp')[:4]
-        import pprint; pprint.pprint(context['profile_user'].__dict__)
         context['courses_given'] = [
             cp.course for cp in
             context['profile_user'].courseprofessor_set.all()[:4]]
@@ -38,3 +40,18 @@ class TeachersView(ListView):
 
     def get_queryset(self):
         return TimtecUser.objects.all().filter(groups=2)
+
+class EnoisEnrollCourseView(EnrollCourseView):
+    def get_redirect_url(self, **kwargs):
+        if not self.request.user.accepted_terms:
+            return reverse('accept_terms') + '?course=' + self.kwargs['slug']
+        else:
+            return super(EnoisEnrollCourseView, self).get_redirect_url(**kwargs)
+
+class EnoisAcceptTermsView(AcceptTermsView):
+    def get_success_url(self):
+        course_slug = self.request.REQUEST.get('course', None)
+        if course_slug:
+            return reverse('enroll_course', kwargs={'slug': course_slug })
+        else:
+            return super(AcceptTermsView, self).get_success_url()

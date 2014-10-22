@@ -12,12 +12,12 @@ from accounts.views import CustomLoginView, ProfileEditView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
 
 from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
-                        CourseProfessorViewSet, EnrollCourseView,
+                        CourseProfessorViewSet,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        AcceptTermsView, CarouselCourseView,)
+                        CarouselCourseView,)
 from homepage.views import HomePageView
 
 from activities.views import AnswerViewSet
@@ -32,7 +32,7 @@ from portfolio.views import (PortfolioViewSet, PortfolioCommentViewSet,
                              PortfolioView, UpdatePortfolioView, DeletePortfolioView)
 from rest_framework import routers
 from django_markdown import flatpages
-from enoisoverrides.views import EnoisProfileView, TeachersView
+from enoisoverrides.views import EnoisProfileView, TeachersView, EnoisEnrollCourseView, EnoisAcceptTermsView
 
 flatpages.register()
 
@@ -73,9 +73,9 @@ urlpatterns = patterns(
 
     # Public browsing
     url(r'^meus-cursos/$', UserCoursesView.as_view(), name='user_courses'),
-    url(r'^accept_terms/$', AcceptTermsView.as_view(), name='accept_terms'),
+    url(r'^accept_terms/$', EnoisAcceptTermsView.as_view(), name='accept_terms'),
     url(r'^curso/(?P<slug>[-a-zA-Z0-9_]+)/$', CourseView.as_view(), name='course_intro'),
-    url(r'^curso/(?P<slug>[-a-zA-Z0-9_]+)/matricula/$', EnrollCourseView.as_view(), name='enroll_course'),
+    url(r'^curso/(?P<slug>[-a-zA-Z0-9_]+)/matricula/$', EnoisEnrollCourseView.as_view(), name='enroll_course'),
     url(r'^curso/(?P<course_slug>[-a-zA-Z0-9_]+)/aula/(?P<slug>[-a-zA-Z0-9_]+)/$', LessonDetailView.as_view(), name='lesson'),
     url(r'^html5/', TemplateView.as_view(template_name="html5.html")),
     url(r'^empty/', TemplateView.as_view(template_name="empty.html")),
@@ -118,6 +118,7 @@ urlpatterns = patterns(
     url(r'^entrar/', CustomLoginView.as_view(), name='timtec_login'),
     url(r'^sair/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
+    # Profiles
     url(r'^perfil/editar/?$', ProfileEditView.as_view(), name="profile_edit"),
     url(r'^perfil/(?P<username>[\w.+-]+)?/?$', EnoisProfileView.as_view(), name="profile"),
 
