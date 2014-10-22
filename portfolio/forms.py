@@ -19,9 +19,7 @@ class EnoisPortfolioForm(forms.ModelForm):
         video = self.instance.video
         new_video = self.cleaned_data.get('new_video')
 
-        if not video and not new_video:
-            raise forms.ValidationError({'new_video': ['Video is required!',]})
-        elif not video:
+        if new_video and not video:
             video = Video.objects.create(
                 youtube_id=get_youtube_id(new_video),
                 name=self.cleaned_data.get('name', '')
