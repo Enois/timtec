@@ -22,12 +22,13 @@ class EnoisProfileView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data()
         context['portfolios'] = context['profile_user'].portfolio_set.all().order_by('-timestamp')[:4]
-        context['courses_given'] = (
+        import pprint; pprint.pprint(context['profile_user'].__dict__)
+        context['courses_given'] = [
             cp.course for cp in
-            context['profile_user'].courseprofessor_set.all()[:4])
-        context['courses_enrolled'] = (
+            context['profile_user'].courseprofessor_set.all()[:4]]
+        context['courses_enrolled'] = [
             cp.course for cp in
-            context['profile_user'].coursestudent_set.all()[:4])
+            context['profile_user'].coursestudent_set.all()[:4]]
         return context
 
 
