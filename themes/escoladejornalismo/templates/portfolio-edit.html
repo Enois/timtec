@@ -86,9 +86,16 @@
             {% endif %}
             <div class="form-group">
                 <label for="{{ form.new_video.name }}">
+                    {% if object %}
+                    Trocar o vídeo
+                    {% else %}
                     {{ form.new_video.label }}
+                    {% endif %}
                 </label>
                 {% render_field form.new_video class+="form-control"%}
+                {% if object.video %}
+                <p class="help-block">Este campo só precisa ser preenchido para substituir o vídeo atual.</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <label for="{{ form.thumbnail.name }}">

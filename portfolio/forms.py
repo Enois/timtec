@@ -1,3 +1,4 @@
+# coding: utf-8
 from django import forms
 from core.models import Video
 from portfolio.models import Portfolio
@@ -8,11 +9,12 @@ class EnoisPortfolioForm(forms.ModelForm):
         model = Portfolio
         fields = ('name', 'video', 'thumbnail', 'description', 'tags', 'home_published')
 
-    new_video = forms.URLField(required=False, label='Trocar o video')
+    new_video = forms.URLField(required=False, label='URL do Vídeo')
 
     def __init__(self, *args, **kwargs):
         super(EnoisPortfolioForm, self).__init__(*args, **kwargs)
         self.fields['video'].required = False
+        self.fields['thumbnail'].label = 'Imagem'
 
     def clean(self):
         # See http://stackoverflow.com/a/8996801/207119
