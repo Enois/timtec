@@ -9,6 +9,10 @@
     {% compressed_js 'homepage' %}
 {% endblock %}
 
+{% block body_attrs %}
+class="homepage"
+{% endblock %}
+
 {% block content %}
 <div ng-app="homepage">
   {% include "_homepage-greeting.html" %}
