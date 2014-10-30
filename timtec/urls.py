@@ -52,6 +52,7 @@ router.register(r'course_stats', CourseStatsByLessonViewSet)
 router.register('portfolio', PortfolioViewSet, CommentViewSet)
 router.register(r'portfoliothumbs', PortfolioThumbViewSet)
 router.register('homepage', HomePageViewSet)
+router.register('comment',CommentViewSet)
 
 
 

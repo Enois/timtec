@@ -31,6 +31,14 @@
  app.factory('User', function($resource){
         return $resource('/api/user/:id', {'id':'@id'});
     });
+
+ app.factory('Comment', function($resource){
+        var Comment = $resource('/api/comment/:id', {'id':'@id'});
+     Comment.prototype.saveOrUpdate = function(){
+         return this.$save();
+     };
+     return Comment;
+    });
        /**
      * A object that fetch info from Youtube. It expects a video ID and returns
      * a promise that video info will be fetched.

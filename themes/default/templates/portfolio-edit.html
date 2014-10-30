@@ -46,6 +46,7 @@ window.userId = {{ user.pk }};
                 <div class="col-md-6 col-sm-8 col-xs-12">
                 {% if in_student %}
                     <h1>
+
                         <span  ng-model="portfolio.name" placeholder="{% trans 'Portfolio name' %}" contenteditable="true"></span></h1>
                 {% else %}
                     <h1>{{ portfolio.name }}</h1>
@@ -201,7 +202,9 @@ window.userId = {{ user.pk }};
                     <!-- END COURSE-VIDEO -->
                     {% endif %}
                     <!-- END COURSE-VIDEO -->
+
                 {% endif %}
+
             </div>
             <!--change -->
            <div class="col-sm-6 col-md-3 portfolio-description">

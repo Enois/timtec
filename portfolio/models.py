@@ -41,3 +41,8 @@ class Comment(models.Model):
     portfolio = models.ForeignKey(Portfolio)
     created_on = models.DateTimeField(auto_now_add=True)
 
+    def get_user_name(self):
+        if self.user:
+            return self.user.get_full_name()
+        return ''
+

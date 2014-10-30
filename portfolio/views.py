@@ -107,16 +107,22 @@ class PortfolioView(DetailView):
 
 class CommentViewSet(viewsets.ModelViewSet):
     model = Comment
-    lookup_field = 'id'
-    filter_fields = ('user', 'portfolio',)
+    lookup_field = 'portfolio'
+    filter_fields = ('portfolio',)
     serializer_class = CommentSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def pre_save(self, obj):
         obj.user = self.request.user
 
-    def get_queryset(self):
-        return Comment.objects.filter(user=self.request.user)
+    def retrieve(self, request, *args, **kwargs):
+        portfolio = self.kwargs['portfolio']
+        results = []
+        comments = Comment.objects.all().filter(portfolio=portfolio)
+        for comment in comments:
+            results.append(CommentSerializer(comment).data)
+
+        return Response(results)
 
 
 class PortfoliosView(ListView):

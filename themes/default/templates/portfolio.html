@@ -201,6 +201,47 @@ window.userId = {{ user.pk }};
                     <!-- END COURSE-VIDEO -->
                     {% endif %}
                     <!-- END COURSE-VIDEO -->
+                    <!--comment -->
+                    <section class="comment" id="portfolio-comment">
+                    <div class="detailBox">
+    <div class="titleBox">
+      <label>Comment Portfolio</label>
+    </div>
+    <div class="commentBox">
+
+        <p class="taskDescription">Share your feedback for this work</p>
+    </div>
+    <div class="actionBox">
+        <ul class="commentList" ng-repeat="comment in coments">
+            {% verbatim %}
+            <li>
+                <div class="commenterImage">
+                  <img ng-src="{{ comment.did.picture }}"/>
+                </div>
+                <div class="commentText">
+                    <p class="">{{ comment.text }}</p> <span class="date sub-text">on March 5th, 2014</span>
+
+                </div>
+            </li>
+            {% endverbatim %}
+        </ul>
+
+{% if user.is_authenticated %}
+        <form class="form-inline" role="form">
+        {% verbatim %}
+            <div class="form-group">
+                <input ng-model="comment.text" class="form-control" type="text" placeholder="Your comments" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" ng-click="saveComment()">Add</button>
+            </div>
+            {% endverbatim %}
+        </form>
+{% endif %}
+    </div>
+</div>
+                    </section>
+                    <!-- END comment -->
                 {% endif %}
             </div>
             <!--change -->

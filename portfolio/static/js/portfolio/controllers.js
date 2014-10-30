@@ -3,8 +3,8 @@
     var app = angular.module('portfolio.controllers', []);
 
    app.controller('PortfolioEditController',
-        ['$scope', 'Portfolio','User', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
-        function($scope, Portfolio,User, $filter, youtubePlayerApi, VideoData, FormUpload) {
+        ['$scope', 'Portfolio','User','Comment', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
+        function($scope, Portfolio,User,Comment, $filter, youtubePlayerApi, VideoData, FormUpload) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -15,6 +15,8 @@
 
             $scope.portfolio = new Portfolio();
             $scope.user = new User();
+            $scope.comment = new Comment();
+            $scope.comments = [];
             window.s = $scope;
 
 
@@ -52,12 +54,8 @@
                 if(! $scope.thumbfile) {
                     return;
                 }
-                var sizePic=parseInt($scope.thumbfile.size);
-                console.log("sizePic"+sizePic);
-                console.log($scope.thumbfile.size );
-                if (sizePic > 50064 && sizePic < 120000 ) {
                     if ($scope.portfolio.id) {
-                        console.log($scope.thumbfile.size);
+
                         var fu = new FormUpload();
                         fu.addField('thumbnail', $scope.thumbfile);
                         // return a new promise that file will be uploaded
@@ -66,13 +64,6 @@
                                 $scope.alert.success('A imagem atualizada.');
                             });
                     }
-                }else {
-                    $scope.alert.warn('Por favor mude a imagem ! \n\n'
-        + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n"
-        + '\t• o tamanho deve ser> 50000 e <120000\n');
-                    return;
-                }
-
             };
 
 
@@ -82,7 +73,9 @@
                 if(!$scope.portfolio.hasVideo()){
                     delete $scope.portfolio.video;
                 }
-                $scope.portfolio.description='Please insert a detailed description';
+                if(!$scope.portfolio.description) {
+                    $scope.portfolio.description = 'Please insert a detailed description';
+                }
                 $scope.portfolio.saveOrUpdate()
                     .then(function(){
                         return $scope.saveThumb();
@@ -92,6 +85,14 @@
                         })['catch'](showFieldErrors);
             };
 
+
+            $scope.saveComment = function() {
+                $scope.comment.user=$scope.user.id;
+                $scope.comment.portfolio=$scope.portfolio.id;
+                $scope.comments.push($scope.comment);
+               $scope.comment.saveOrUpdate();
+                $scope.comment = null;
+            };
 
             $scope.publishPortfolio = function() {
                 $scope.portfolio.status = 'published';
@@ -130,6 +131,8 @@
                         $scope.addThumb = !portfolio.thumbnail_url;
                         // course_material and forum urls
                         $scope.user.$get({id: portfolio.user});
+                        $scope.comments=Comment.query({id:portfolio.id});
+
                         return $scope.user.promise;
 
                     })['catch'](function(resp){
