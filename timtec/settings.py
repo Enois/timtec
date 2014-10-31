@@ -22,16 +22,16 @@ SITE_NAME = 'Escola de Jornalismo'
 SITE_DOMAIN = 'escoladejornalismo.org'
 
 ADMINS = (
-    ('Admin1', 'root@localhost'),
-    ('timtec-dev list', 'timtec-dev@listas.hacklab.com.br'),
+    ('Capi Etheriel', 'barraponto@gmail.com'),
+    ('Nina Weingrill', 'nweingrill@gmail.com'),
 )
 
-MANAGERS = (ADMINS[1],)
+MANAGERS = ADMINS
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'localhost'
-DEFAULT_FROM_EMAIL = 'donotreply-dev@m.timtec.com.br'
-CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
+DEFAULT_FROM_EMAIL = 'contato@escoladejornalismo.org'
+CONTACT_RECIPIENT_LIST = ['', ]
 
 DATABASES = {
     'default': {
