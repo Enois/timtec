@@ -17,7 +17,7 @@ class Portfolio(models.Model):
     description = models.TextField(_('Description'), null=True, blank=True)
     timestamp = models.DateTimeField(_('Date'), auto_now_add=True)
     video = models.ForeignKey(Video, verbose_name=_('video'), null=True, blank=True)
-    status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
+    status = models.CharField(_('Status'), choices=STATES, default=STATES[1][0], max_length=64)
     tags = TaggableManager(blank=True)
     thumbnail = models.ImageField(_('Thumbnail'), upload_to='portfolio_thumbnails', null=True, blank=True)
     home_published = models.BooleanField(default=False)
