@@ -111,8 +111,8 @@ urlpatterns = patterns(
     url(r'^curso/(?P<slug>[-a-zA-Z0-9_]+)/material/$', CourseMaterialView.as_view(), name='course_material'),
 
     # Notes
-    url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
-    url(r'^curso/(?P<course_slug>[-a-zA-Z0-9_]+)/mynotes/$', CourseNotesView.as_view(), name='user_course_notes'),
+    url(r'^notas/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
+    url(r'^curso/(?P<course_slug>[-a-zA-Z0-9_]+)/minhas-notas/$', CourseNotesView.as_view(), name='user_course_notes'),
 
     # Authentication
     url(r'^entrar/', CustomLoginView.as_view(), name='timtec_login'),
