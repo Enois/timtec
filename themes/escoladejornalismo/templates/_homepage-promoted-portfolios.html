@@ -1,3 +1,4 @@
+{% load thumbnail %}
 <div id="portfolio">
     <div class="container">
         <div class="header-portfolios">
@@ -8,7 +9,15 @@
             {% for portfolio in promoted_portfolios %}
             <div class="col-sm-6 col-md-3">
                 <div class="item-portfolio">
-                    <img src="{% if portfolio.thumbnail  %}{{ portfolio.thumbnail.url }}{% endif %}" alt="" title=""/>
+                    {% if portfolio.thumbnail %}
+                        {% thumbnail portfolio.thumbnail "250x230" crop='center' as thumb %}
+                        <img src="{{ thumb.url }}" title="" alt=""/>
+                        {% endthumbnail %}
+                    {% else %}
+                        {% thumbnail portfolio.get_thumbnail_url "250x230" crop='center' as thumb %}
+                        <img src="{{ thumb.url }}" title="" alt=""/>
+                        {% endthumbnail %}
+                    {% endif %}
                     <div class="caption">
                         <a href="{% url 'portfolio_view' pk=portfolio.id %}">
                             {{ portfolio.name }}
