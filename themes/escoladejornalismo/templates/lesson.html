@@ -177,7 +177,18 @@
                         <h3><i class="fa fa-angle-double-right"></i> Materiais Adicionais</h3>
                     </div>
                     <span ng-bind-html="currentUnit.side_notes|markdown"></span>
+                    {% if user.is_staff or user in lesson.course.professors.all %}
+                    {% verbatim %}
+                    <p ng-if="!currentUnit.side_notes">
+                      Esta unidade ainda não tem materiais adicionais.
+                      <a href="/django/admin/core/unit/{{ currentUnit.id }}">
+                        Deseja adicionar agora?
+                      </a>
+                    </p>
+                    {% endverbatim %}
+                    {% else %}
                     <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
+                    {% endif %}
                 </div>
                 <!-- END SIDENOTES -->
 
