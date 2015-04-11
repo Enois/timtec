@@ -3,25 +3,25 @@
         <li>
             {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary">
-                &lt; PREV
+                &lt;
             </a>
             {% else %}
             <a class="btn btn-primary disabled">
-                &lt; PREV
+                &lt;
             </a>
             {% endif %}
         </li>
         <li>
-            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <span>{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
         </li>
         <li>
             {% if page_obj.has_next %}
             <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary">
-                NEXT &gt;
+                &gt;
             </a>
             {% else %}
             <a class="btn btn-primary disabled">
-                NEXT &gt;
+                &gt;
             </a>
             {% endif %}
         </li>
