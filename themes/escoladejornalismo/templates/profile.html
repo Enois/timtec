@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
+{% load thumbnail %}
 {% block content %}
 <div id="profile" class="container">
     <div class="row">
@@ -80,7 +81,29 @@
     </div>
     <div class="row">
         {% for portfolio in portfolios %}
-            {% include '_portfolio-item.html' %}
+        <section>
+            <div class="col-sm-6 col-md-3">
+                <a href="{% url 'portfolio_view' pk=portfolio.id %}">
+                    <div class="thumb-portfolio">
+                        {% if portfolio.thumbnail %}
+                            {% thumbnail portfolio.thumbnail "250x230" crop='center' as thumb %}
+                            <img src="{{ thumb.url }}" title="" alt=""/>
+                            {% endthumbnail %}
+                        {% else %}
+                            {% thumbnail portfolio.get_thumbnail_url "250x230" crop='center' as thumb %}
+                            <img src="{{ thumb.url }}" title="" alt=""/>
+                            {% endthumbnail %}
+                        {% endif %}
+                        <div>
+                            <div>
+                                <h2>{{ portfolio.name }}</h2>
+                                <p>{{ portfolio.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
         {% endfor %}
     </div>
     {% endif %}
