@@ -58,7 +58,7 @@
                     </div>
                 </section>
                 {% endif %}
-
+            <p>{% for tag in portfolio.tags.all %}{{ tag.name }} {% endfor %}</p>
             </div>
 
             <div class="col-sm-6 col-md-3 portfolio-description">
@@ -80,7 +80,7 @@
                         <i class="fa fa-map-marker fa-lg"></i>
                         <a>{{ portfolio.user.city }}</a>
                     </div>
-                    <small><i>Posted on {{ portfolio.timestamp | date:"d M, y" }}</i></small>
+                    <small><i>Enviado em {{ portfolio.timestamp | date:"d M, y" }}</i></small>
                     <a href="{% url 'profile' username=portfolio.user.username %}"
                         class="btn btn-outline-inverse btn-lg btn-section-user">
                         Ver Perfil Completo
@@ -88,6 +88,7 @@
                 </div>
                 <hr>
 
+                {% if portfolio_items %}
                 <h3>Outros trabalhos desse perfil</h3>
                 <div class="other-portfolio">
                     {% for item in portfolio_items %}
@@ -100,12 +101,17 @@
                         <div class="media-body">
                             <h1 class="media-heading">{{ item.name }}</h1>
                             <p>{{ item.description }}</p>
-                            <small><i>Posted on {{ item.timestamp | date:"d M, y" }}</i></small>
+                            <small><i>Enviado em {{ item.timestamp | date:"d M, y" }}</i></small>
                         </div>
                     </div>
                     {% endfor %}
+                    <a href="{% url 'profile' username=portfolio.user.username %}"
+                        class="btn btn-outline-inverse btn-lg btn-section-user">
+                        Ver Todos
+                    </a>
                 </div>
                 <hr>
+                {% endif %}
 
                 <h3>Compartilhar</h3>
                 <div class="portfolio-share">
