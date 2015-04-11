@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+{% load i18n %}
+{% load static %}
+{% load compressed %}
+{% load metron_tags %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{{ site.name }}{% endblock %}</title>
+
+    {% compressed_css 'common' %}
+    {% compressed_css 'public' %}
+
+    <script>
+        window.STATIC_URL = '{{ STATIC_URL }}';
+        window.MEDIA_URL = '{{ MEDIA_URL }}';
+        window.DEBUG = '{{ DEBUG }}';
+    </script>
+
+    {% compressed_js 'all' %}
+    {% compressed_js 'codemirror' %}
+
+    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
+
+    {% block js %}{% endblock %}
+
+    {% analytics %}
+    <script type="text/javascript" charset="utf-8">
+        (function(){
+            function resize_player() {
+                var $p = $('#youtube-player');
+                $p.css('width','100%');
+                $p.height(Math.floor($p.width() * 0.5624));
+            }
+
+            function wrapper_min_height() {
+                windowHeight = window.innerHeight;
+                navbarHeight = $('#main-navbar').outerHeight(true) + $('#social-navbar').outerHeight(true);
+                footerHeight = $('#main-footer').outerHeight(true);
+                $('.wrapper').css('min-height', windowHeight - navbarHeight - footerHeight);
+            }
+
+            $(document).ready(function() {
+                $('.has-tooltip').tooltip();
+
+                {% if not in_admin %}
+                    $(document).on('DOMNodeInserted','#player-outter', resize_player);
+                    resize_player();
+                {% endif %}
+
+                wrapper_min_height();
+
+                $('#start-intro').click(function(){
+                    startIntro();
+                });
+            });
+            $(window).resize(resize_player);
+            $(window).resize(resize_activation_wrapper);
+        })();
+    </script>
+</head>
+<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
+
+    {% include 'header.html' %}
+
+    <div class="wrapper">
+        {% block content %}
+        <h1>missing content block</h1>
+        {% endblock %}
+    </div>
+
+    {% include 'footer.html' %}
+
+{% if user.is_authenticated %}
+    <script type="text/javascript">
+    ga('set', 'dimension1', '{{ user.id }}');
+    ga('set', 'dimension2', '{{ user.get_user_type }}');
+    ga('set', 'dimension3', '{{ user.is_pilot }}');
+    </script>
+{% else %}
+    {% include 'account/login_modal.html' %}
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            var $modal = $("#login-modal");
+            var $next = $modal.find('input[name=next]');
+            $('a.js-login-required').click(function(e){
+                $next.val($(this).attr('href'));
+                $modal.modal();
+                return false;
+            });
+        });
+    </script>
+{% endif %}
+</body>
+</html>
