@@ -7,30 +7,7 @@
         </div>
         <div class="row">
             {% for portfolio in promoted_portfolios %}
-            <div class="col-sm-6 col-md-3">
-                <div class="item-portfolio">
-                    {% if portfolio.thumbnail %}
-                        {% thumbnail portfolio.thumbnail "250x230" crop='center' as thumb %}
-                        <img src="{{ thumb.url }}" title="" alt=""/>
-                        {% endthumbnail %}
-                    {% else %}
-                        {% thumbnail portfolio.get_thumbnail_url "250x230" crop='center' as thumb %}
-                        <img src="{{ thumb.url }}" title="" alt=""/>
-                        {% endthumbnail %}
-                    {% endif %}
-                    <div class="caption">
-                        <a href="{% url 'portfolio_view' pk=portfolio.id %}">
-                            {{ portfolio.name }}
-                        </a>
-                        <p>{{ portfolio.description }}</p>
-                    </div>
-                </div>
-                <div class="user-data">
-                    <a href="{% url 'profile' username=portfolio.user.username %}">
-                        <i class="fa fa-user fa-lg"></i>{{portfolio.user.first_name}} {{portfolio.user.last_name}}
-                    </a>
-                </div>
-            </div>
+                {% include '_portfolio-item.html' %}
             {% endfor %}
         </div>
     </div>

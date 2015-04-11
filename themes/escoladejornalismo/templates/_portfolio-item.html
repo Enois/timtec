@@ -1,23 +1,25 @@
 {% load thumbnail %}
 <section>
     <div class="col-sm-6 col-md-3">
-        <div class="thumb-portfolio">
-            {% if portfolio.thumbnail %}
-                {% thumbnail portfolio.thumbnail "250x230" crop='center' as thumb %}
-                <img src="{{ thumb.url }}" title="" alt=""/>
-                {% endthumbnail %}
-            {% else %}
-                {% thumbnail portfolio.get_thumbnail_url "250x230" crop='center' as thumb %}
-                <img src="{{ thumb.url }}" title="" alt=""/>
-                {% endthumbnail %}
-            {% endif %}
-            <div>
+        <a href="{% url 'portfolio_view' pk=portfolio.id %}">
+            <div class="thumb-portfolio">
+                {% if portfolio.thumbnail %}
+                    {% thumbnail portfolio.thumbnail "250x230" crop='center' as thumb %}
+                    <img src="{{ thumb.url }}" title="" alt=""/>
+                    {% endthumbnail %}
+                {% else %}
+                    {% thumbnail portfolio.get_thumbnail_url "250x230" crop='center' as thumb %}
+                    <img src="{{ thumb.url }}" title="" alt=""/>
+                    {% endthumbnail %}
+                {% endif %}
                 <div>
-                    <h2><a href="{% url 'portfolio_view' pk=portfolio.id %}">{{ portfolio.name }}</a></h2>
-                    <p>{{ portfolio.description }}</p>
+                    <div>
+                        <h2>{{ portfolio.name }}</h2>
+                        <p>{{ portfolio.description }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
         <div class="user-data">
             <a href="{% url 'profile' username=portfolio.user.username %}">
                 <i class="fa fa-user fa-lg"></i>
