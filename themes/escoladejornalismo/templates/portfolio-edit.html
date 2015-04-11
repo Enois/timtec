@@ -49,13 +49,17 @@
     </div>
 
     <div class="container">
-        {{ form.errors }}
         <form id="portfolio-form" method="POST" enctype="multipart/form-data" action="">
             {% csrf_token %}
-            <div class="form-group">
+            {% with errors=form.name.errors %}
+            <div class="form-group{% if errors %} has-error{% endif %}">
                 <label for="{{ form.name.name }}">{{ form.name.label }}</label>
                 {% render_field form.name class+="form-control"%}
+                {% for error in errors %}
+                <small>{{error}}</small>
+                {% endfor %}
             </div>
+            {% endwith %}
             {% if user_can_promote %}
             <div class="form-group">
                 <div class="checkbox">
@@ -71,6 +75,9 @@
                 <label for="{{ form.video.name }}">
                     {{ form.video.label }}
                 </label>
+                {% for error in form.name.errors %}
+                <small>{{error}}</small>
+                {% endfor %}
                 <section class="video" id="course-video">
                     <div class="row">
                         {% with yid=portfolio.video.youtube_id %}
@@ -84,7 +91,9 @@
                 </section>
             </div>
             {% endif %}
-            <div class="form-group">
+
+            {% with errors=form.video.errors %}
+            <div class="form-group{% if errors %} has-error{% endif %}">
                 <label for="{{ form.new_video.name }}">
                     {% if object %}
                     Trocar o vídeo
@@ -96,14 +105,25 @@
                 {% if object.video %}
                 <p class="help-block">Este campo só precisa ser preenchido para substituir o vídeo atual.</p>
                 {% endif %}
+                {% for error in errors %}
+                <small>{{error}}</small>
+                {% endfor %}
             </div>
-            <div class="form-group">
+            {% endwith %}
+
+            {% with errors=form.thumbnail.errors %}
+            <div class="form-group{% if errors %} has-error{% endif %}">
                 <label for="{{ form.thumbnail.name }}">
                     {{ form.thumbnail.label }}
                 </label>
                 {% render_field form.thumbnail class+="form-control"%}
                 <p class="help-block">Tamanho máximo do arquivo: 8 MB</p>
+                {% for error in errors %}
+                <small>{{error}}</small>
+                {% endfor %}
             </div>
+            {% endwith %}
+
             <div class="form-group">
                 <label for="{{ form.description.name }}">{{ form.description.label }}</label>
                 {% render_field form.description class+="form-control"%}

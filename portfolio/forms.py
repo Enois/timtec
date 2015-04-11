@@ -13,6 +13,7 @@ class EnoisPortfolioForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EnoisPortfolioForm, self).__init__(*args, **kwargs)
+        self.fields['name'].required = True
         self.fields['video'].required = False
         self.fields['thumbnail'].label = 'Imagem'
 
@@ -29,4 +30,11 @@ class EnoisPortfolioForm(forms.ModelForm):
 
         self.cleaned_data['video'] = video
 
-        return super(EnoisPortfolioForm, self).clean()
+        data = super(EnoisPortfolioForm, self).clean()
+
+        if not (self.cleaned_data['video'] or self.cleaned_data['thumbnail']):
+            error_msg = u'Você deve inserir pelo menos o vídeo ou a imagem.'
+            self._errors['video'] = self._errors['thumbnail'] = self.error_class([error_msg])
+            raise forms.ValidationError(error_msg)
+
+        return data
