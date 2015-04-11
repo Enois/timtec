@@ -17,7 +17,7 @@
                 <div class="page-header-double textleft top">
                     <h3 class="top"><i class="fa fa-angle-double-right"></i> {{profile_user.first_name}} {{profile_user.last_name}}</h3>
                 </div>
-
+                {% if profile_user.occupation %}
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <strong>{% trans "Occupation" %}</strong>
@@ -26,7 +26,8 @@
                         <p>{{profile_user.occupation}}</p>
                     </div>
                 </div>
-
+                {% endif %}
+                {% if profile_user.city %}
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <strong>{% trans "City" %}</strong>
@@ -35,7 +36,9 @@
                         <p>{{profile_user.city}}</p>
                     </div>
                 </div>
+                {% endif %}
 
+                {% if profile_user.site %}
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <strong>{% trans "Site" %}</strong>
@@ -44,7 +47,9 @@
                         <p><a href="{{profile_user.site}}" target="_blank">{{profile_user.site}}</a></p>
                     </div>
                 </div>
+                {% endif %}
 
+                {% if profile_user.biography %}
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <strong>{% trans "Bio" %}</strong>
@@ -53,6 +58,7 @@
                         <p>{{profile_user.biography}}</p>
                     </div>
                 </div>
+                {% endif %}
             </fieldset>
         </div>
     </div>
