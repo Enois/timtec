@@ -12,7 +12,7 @@
         <header class="page-header-double header">
             <h2><i class="fa fa-angle-double-right"></i> Mentores</h2>
         </header>
-        <div class="row">
+        <div class="row" ng-app>
             {% for teacher in teachers %}
             <!-- Dark Profile Start -->
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
@@ -51,13 +51,20 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-7 col-sm-9 col-xs-8">
                                 <ul class="icon-list list-unstyled">
-                                    <li><i class="fa fa-envelope"></i>{{ teacher.email }}</li>
+                                    {% if user.is_authenticated %}
+                                    <li ng-hide="show_email{{ teacher.id}}">
+                                        <i class="fa fa-envelope"></i><span class="btn btn-sm btn-default" ng-click="show_email{{ teacher.id}}=true">Clique para ver o email</span>
+                                    </li>
+                                    <li ng-if="show_email{{ teacher.id}}"><i class="fa fa-envelope"></i>{{ teacher.email }}</li>
+                                    {% endif %}
                                     <li><i class="fa fa-map-marker"></i>{{ teacher.city }}</li>
                                     <li><i class="fa fa-suitcase"></i>{{ teacher.occupation }}</li>
+                                    {% if teacher.site %}
                                     <li>
                                         <i class="fa fa-link"></i>
                                         <a href="{{ teacher.site }}">{{ teacher.site }}</a>
                                     </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
