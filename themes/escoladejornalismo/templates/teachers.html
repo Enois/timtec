@@ -59,12 +59,13 @@
                                     {% endif %}
                                     <li><i class="fa fa-map-marker"></i>{{ teacher.city }}</li>
                                     <li><i class="fa fa-suitcase"></i>{{ teacher.occupation }}</li>
-                                    {% if teacher.site %}
                                     <li>
+                                        {% if teacher.site %}
                                         <i class="fa fa-link"></i>
                                         <a href="{{ teacher.site }}">{{ teacher.site }}</a>
+                                        {% endif %}
                                     </li>
-                                    {% endif %}
+
                                 </ul>
                             </div>
                         </div>
