@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 
+{% block js %}
+    {{ block.super }}
+    <script>
+    // FIXME refactor this to angular
+    $(document).ready(function() {
+        var converter1 = Markdown.getSanitizingConverter();
+        var editor1 = new Markdown.Editor(converter1);
+        editor1.run();
+    });
+    </script>
+{% endblock %}
+
 {% block content %}
 
 <div id="portfolio-user">
@@ -62,7 +74,7 @@
             {% endwith %}
             {% if user_can_promote %}
             <div class="form-group">
-                <div class="checkbox">
+                <div>
                     <label for="{{ form.home_published.name }}">
                         {% render_field form.home_published %}
                         Publicar na Home
@@ -78,6 +90,7 @@
                 {% for error in form.name.errors %}
                 <small>{{error}}</small>
                 {% endfor %}
+                {% if portfolio.video %}
                 <section class="video" id="course-video">
                     <div class="row">
                         {% with yid=portfolio.video.youtube_id %}
@@ -89,13 +102,14 @@
                         {% endwith %}
                     </div>
                 </section>
+                {% endif %}
             </div>
             {% endif %}
 
             {% with errors=form.video.errors %}
             <div class="form-group{% if errors %} has-error{% endif %}">
                 <label for="{{ form.new_video.name }}">
-                    {% if object %}
+                    {% if object.video %}
                     Trocar o vídeo
                     {% else %}
                     {{ form.new_video.label }}
@@ -126,7 +140,15 @@
 
             <div class="form-group">
                 <label for="{{ form.description.name }}">{{ form.description.label }}</label>
-                {% render_field form.description class+="form-control"%}
+                <div class="wmd-panel" markdowneditor="true">
+                    <div id="wmd-button-bar" class="js-button-bar"></div>
+                    <div class="form-group">
+                        <textarea id="wmd-input" name="description" class="form-control" rows="10" placeholder="">{{ form.description.value }}</textarea>
+                    </div>
+                </div>
+                <p class="help-block">Se você quiser divulgar trabalhos que estejam em PDF, coloque o link na
+descrição. Para publicá-los na internet, você pode usar sites como o Issuu
+e o Google Drive, que são gratuitos</p>
             </div>
             <div class="form-group">
                 <label for="{{ form.tags.name }}">{{ form.tags.label }}</label>
